@@ -7,6 +7,7 @@ dependencies:
   fs: 0.0.1-security
   lyrics-finder: 21.7.0
   nodemon: 2.0.7
+  opusscript: 0.0.8
   yt-search: 2.8.0
   ytdl-core: 4.7.0
 packages:
@@ -1545,6 +1546,10 @@ packages:
     dev: false
     resolution:
       integrity: sha1-WDsap3WWHUsROsF9nFC6753Xa9E=
+  /opusscript/0.0.8:
+    dev: false
+    resolution:
+      integrity: sha512-VSTi1aWFuCkRCVq+tx/BQ5q9fMnQ9pVZ3JU4UHKqTkf0ED3fKEPdr+gKAAl3IA2hj9rrP6iyq3hlcJq3HELtNQ==
   /os-homedir/1.0.2:
     dev: false
     engines:
@@ -2191,5 +2196,6 @@ specifiers:
   fs: 0.0.1-security
   lyrics-finder: ^21.7.0
   nodemon: ^2.0.7
+  opusscript: 0.0.8
   yt-search: ^2.8.0
   ytdl-core: ^4.7.0
