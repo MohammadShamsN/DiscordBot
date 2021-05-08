@@ -2,6 +2,7 @@ const Discord = require("discord.js");
 const fs = require("fs");
 require("dotenv").config();
 
+const http = require('http');
 const express = require('express');
 const app = express();
 
@@ -48,4 +49,30 @@ const server = app.listen(3000, () => {
   console.log('[EXPRESS] Started listening on port 3000');
 })
 
-fetch("/awake").then(response => console.log(response));
+
+
+
+
+
+
+setInterval(() => {
+  const options = {
+    hostname: '',
+    port: 3000,
+    path: '/awake',
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  }
+  
+  const req = http.request(options, res => {
+    //console.log(`statusCode: ${res.statusCode}`);
+  })
+  
+  req.on('error', error => {
+    console.error(error);
+  })
+  
+  req.end();
+}, 240000);
