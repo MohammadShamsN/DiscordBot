@@ -44,6 +44,8 @@ app.post('/awake', (req, res) => {
   res.sendStatus(200);
 });
 
-app.listen(3000, () => {
+const server = app.listen(3000, () => {
   console.log('[EXPRESS] Started listening on port 3000');
 })
+
+console.log(server.address());
