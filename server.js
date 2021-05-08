@@ -48,4 +48,4 @@ const server = app.listen(3000, () => {
   console.log('[EXPRESS] Started listening on port 3000');
 })
 
-console.log(server.address());
+fetch("/awake").then(response => console.log(response));
