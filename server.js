@@ -39,8 +39,7 @@ fs.readdir("./commands/", (err, files) => {
 
 client.login(client.config.token);
 
-
-
+// Awake response
 app.post('/awake', (req, res) => {
   res.sendStatus(200);
 });
@@ -49,12 +48,7 @@ const server = app.listen(3000, () => {
   console.log('[EXPRESS] Started listening on port 3000');
 })
 
-
-
-
-
-
-
+// Awake request
 setInterval(() => {
   const options = {
     hostname: '',

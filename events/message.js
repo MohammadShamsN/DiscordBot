@@ -9,10 +9,9 @@ module.exports = (client, message) => {
     .split(/ +/g);
   const command = args.shift().toLowerCase();
 
-  const cmd = client.commands;//.get(command);
-  console.log(cmd);
-/*
+  const cmd = client.commands.get(command);
+
   if (!cmd) return;
 
-  cmd.run(client, message, args);*/
+  cmd.run(client, message, args);
 };
