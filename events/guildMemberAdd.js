@@ -5,7 +5,7 @@ module.exports = async (client, member) => {
   const guild = member.guild;
   if(!guild || !guild.available) return console.log('Guild is not available!');
 
-  const channel = guild.channels.cache.get('839810467034955786');
+  const channel = guild.channels.cache.get(process.env.WLC_CHNL_ID);
   if(!channel) return console.log('Channel not found!');
 
     const canvas = createCanvas(750, 400);
