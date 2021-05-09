@@ -61,7 +61,7 @@ setInterval(() => {
   }
   
   const req = http.request(options, res => {
-    //console.log(`statusCode: ${res.statusCode}`);
+    console.log(`statusCode: ${res.statusCode}`);
   })
   
   req.on('error', error => {
