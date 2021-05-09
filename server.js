@@ -40,7 +40,7 @@ fs.readdir("./commands/", (err, files) => {
 client.login(client.config.token);
 
 // Awake response
-app.post('/', (req, res) => {
+app.get('/cron', (req, res) => {
   res.sendStatus(200);
   console.log('Recieved!');
 });
