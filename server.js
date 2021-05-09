@@ -40,33 +40,11 @@ fs.readdir("./commands/", (err, files) => {
 client.login(client.config.token);
 
 // Awake response
-app.post('/awake', (req, res) => {
+app.post('/', (req, res) => {
   res.sendStatus(200);
+  console.log('Recieved!');
 });
 
 const server = app.listen(3000, () => {
   console.log('[EXPRESS] Started listening on port 3000');
 })
-
-// Awake request
-setInterval(() => {
-  const options = {
-    hostname: '',
-    port: 3000,
-    path: '/awake',
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  }
-  
-  const req = http.request(options, res => {
-    console.log(`statusCode: ${res.statusCode}`);
-  })
-  
-  req.on('error', error => {
-    console.error(error);
-  })
-  
-  req.end();
-}, 240000);
