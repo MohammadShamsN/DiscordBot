@@ -13,7 +13,7 @@ module.exports = async (client, member) => {
 
     // Background image
     const background = await loadImage("https://cdn.glitch.com/7e9d342b-ad04-4e6e-8940-412aa3c82965%2Fbackground.png?v=1620494059517");
-    ctx.drawImage(background, 0, 0, 500, 283);
+    ctx.drawImage(background, 0, 0, 750, 400);
 
     // Text
     ctx.fillStyle = '#dd9fd0';
