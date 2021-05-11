@@ -1,12 +1,13 @@
 const { MessageEmbed } = require("discord.js");
 
 exports.run = async (client, message) => {
-  const commands = `<:instagram:832195695557607424> Instagram\ : https://Instagram.com/Z1ROXTV 
-   Twitch\ : https://Twitch.tv/Z1ROXTV 
-   Youtube\ : https://www.youtube.com/channel/UCBKUnv2PAjeKqDpsgF2isbA
-   Donate\ : https://dono.gg/z1roxtv 
-   Telegram\ : https://t.me/Z1ROXTV 
-   Twitter\ : https://twitter.com/Z1ROXTV`;
+  const commands = `<:Instagram:736518226569068565> Instagram\ : https://Instagram.com/Z1ROXTV 
+   Twitch\ : <:twitch:760587569879711844> https://Twitch.tv/Z1ROXTV 
+   Youtube\ : <:YouTube: 760587569385046098> https://www.youtube.com/channel/UCBKUnv2PAjeKqDpsgF2isbA
+   Donate\ : <:peepoScammer:834675653894078464> https://dono.gg/z1roxtv 
+   Telegram\ : <:Telegram:760587584220037160> https://t.me/Z1ROXTV 
+   Twitter\ : <:NM_Twitter: 735279288743624714> https://twitter.com/Z1ROXTV
+   Discord\ : <:3702_party_discord:712764861997908040> https://discord.gg/FbcrFGmZkK`;
    
   const revised = commands
     .split("\n")
