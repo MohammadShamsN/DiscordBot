@@ -1,7 +1,7 @@
 const { MessageEmbed } = require("discord.js");
 
 exports.run = async (client, message) => {
-  const commands = ` :instagram: Instagram\ : https://Instagram.com/Z1ROXTV 
+  const commands = `<:instagram:832195695557607424> Instagram\ : https://Instagram.com/Z1ROXTV 
    Twitch\ : https://Twitch.tv/Z1ROXTV 
    Youtube\ : https://www.youtube.com/channel/UCBKUnv2PAjeKqDpsgF2isbA
    Donate\ : https://dono.gg/z1roxtv 
