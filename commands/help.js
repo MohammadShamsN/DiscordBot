@@ -1,9 +1,9 @@
 const { MessageEmbed } = require("discord.js");
 
 exports.run = async (client, message) => {
-  const commands = `connect\`\` - join the voice channel you are in
+  const commands = `connect\ : join the voice channel you are in
    disconnect\ : leave the voice channel you are in
-   play <Song Name or url>\`\` - play songs from youtube
+   play <Song Name or url>\ : play songs from youtube
    pause\ : pause currently playing songs in the server
    resume\ : resume paused songs in the server
    queue\ : shows the song queue of the server
