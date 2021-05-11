@@ -1,12 +1,12 @@
 const { MessageEmbed } = require("discord.js");
 
 exports.run = async (client, message) => {
-  const commands = `Instagram\ : https://Instagram.com/Z1ROXTV 
+  const commands = `:instagram: Instagram\ : https://Instagram.com/Z1ROXTV 
    Twitch\ : https://Twitch.tv/Z1ROXTV 
    Youtube\ : https://www.youtube.com/channel/UCBKUnv2PAjeKqDpsgF2isbA
    Donate\ : https://dono.gg/z1roxtv 
    Telegram\ : https://t.me/Z1ROXTV 
-   Twitter\ : shows the song queue of the serve`;
+   Twitter\ : https://twitter.com/Z1ROXTV`;
    
   const revised = commands
     .split("\n")
