@@ -7,7 +7,7 @@ exports.run = async (client, message) => {
    <:peepoScammer:841789232535961640> Donate\ : https://dono.gg/z1roxtv 
    <:Telegram:841790593037238335> Telegram\ : https://t.me/Z1ROXTV 
    <:Twitter:841790459239989248> Twitter\ : https://twitter.com/Z1ROXTV
-   <:discord:841959253082374145> Discord\ : https://discord.gg/FbcrFGmZkK`;
+   <:discord:841959253082374145> Discord\ : https://discord.gg/FbcrFGmZkK` ;
    
   const revised = commands
     .split("\n")
