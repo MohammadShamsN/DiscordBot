@@ -23,7 +23,7 @@ module.exports = async (client, member) => {
     ctx.fillText(text, x, 250);
 
     ctx.fillStyle = '#72e6ff';
-    ctx.font = '40px sans-serif';
+    ctx.font = '30px sans-serif';
     let text2 = `Welcome To ${guild.name} Family!`;
     x = canvas.width / 2 - ctx.measureText(text2).width / 2;
     ctx.fillText(text2, x, 325);
