@@ -39,12 +39,8 @@ fs.readdir("./commands/", (err, files) => {
 
 client.login(client.config.token);
 
-// Awake response
-app.get('/cron', (req, res) => {
-  res.sendStatus(200);
-  console.log('Recieved!');
-});
+const fetch = require('node-fetch')
 
-const server = app.listen(3000, () => {
-  console.log('[EXPRESS] Started listening on port 3000');
-})
+setInterval(async () => {
+  await fetch('https://zirox.glitch.me').then(console.log('Pinged!'))
+},1800000)
