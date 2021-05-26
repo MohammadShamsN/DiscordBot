@@ -43,4 +43,4 @@ const fetch = require('node-fetch')
 
 setInterval(async () => {
   await fetch('https://zirox.glitch.me').then(console.log('Pinged!'))
-},1800000)
+},240000)
