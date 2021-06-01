@@ -110,7 +110,7 @@ exports.run = async (client, message, args) => {
     try {
       const data = message.client.queue.get(message.guild.id);
       if (!track) {
-        data.channel.send("Queue is empty, Leaving voice channel");
+        data.channel.send("Ahang Tamom Shod Felan Khodahafeez <:KEKBye:802573515973853184>");
         message.guild.me.voice.channel.leave();
         return deletequeue(message.guild.id);
       }
