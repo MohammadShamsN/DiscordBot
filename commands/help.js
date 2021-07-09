@@ -28,6 +28,5 @@ exports.run = async (client, message) => {
       .setColor("00C6FF")
       .setTimestamp()
       .setDescription(revised)
-      .addField("Requested By", message.requested.tag, false)
   );
 };
