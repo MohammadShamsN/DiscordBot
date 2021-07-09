@@ -23,8 +23,7 @@
     "node": "12.x"
   },
   "repository": {
-    "url": "https://glitch.com/edit/#!/zirox"
-  },
+    "url": "https://glitch.com/edit/glitch-hello-node"},
   "license": "MIT",
   "keywords": [
     "node",
