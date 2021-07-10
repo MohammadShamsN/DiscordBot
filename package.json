@@ -19,7 +19,9 @@
     "yt-search": "^2.8.0",
     "ytdl-core": "^4.8.3",
     "dotenv-safe": "^8.2.0",
-    "@jakubl/discord.js": "^12.5.2"
+    "@jakubl/discord.js": "^12.5.2",
+    "node-fetch": "^2.6.1",
+    "node": "^16.4.0"
   },
   "engines": {
     "node": "12.x"
