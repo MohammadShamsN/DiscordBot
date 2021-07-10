@@ -12,7 +12,7 @@ exports.run = async (client, message) => {
    📱 +SM
    💻 +PC
    🎙 +Mic 
-   🎵 +help music commands ` ;
+   🎵 +MusicCommands ` ;
    
   const revised = commands
     .split("\n")
