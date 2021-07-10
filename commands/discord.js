@@ -2,8 +2,8 @@ const { MessageEmbed } = require("discord.js");
 
 exports.run = async (client, message) => {
   const commands = 
-   '<:peepoScammer:841789232535961640> Donate\ : https://reymit.ir/z1roxtv'
-
+   `<discord:841959253082374145> Discord\ : https://discord.gg/FbcrFGmZkK` ;
+   
   const revised = commands
     .split("\n")
     .map((x) => x.trim())
