@@ -2,7 +2,7 @@ const { MessageEmbed } = require("discord.js");
 
 exports.run = async (client, message) => {
   const commands = 
-   `<:Instagram:841790627549282435> Instagram : https://Instagram.com/Z1ROXTV` ;
+   '<:peepoScammer:841789232535961640> Donate\ : https://dono.gg/z1roxtv'
 
   const revised = commands
     .split("\n")
