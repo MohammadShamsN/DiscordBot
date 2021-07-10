@@ -25,7 +25,7 @@ exports.run = async (client, message) => {
         "Z1ROX Help Commands",
         "https://cdn.glitch.com/7e9d342b-ad04-4e6e-8940-412aa3c82965%2F20210506_124716.png?v=1620738180348"
       )
-      .setColor("00C6FF")
+      .setColor("FF0000")
       .setTimestamp()
       .setDescription(revised)
   );
