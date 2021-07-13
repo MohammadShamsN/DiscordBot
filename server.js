@@ -42,5 +42,5 @@ client.login(client.config.token);
 const fetch = require('node-fetch')
 
 setInterval(async () => {
-  await fetch('https://zirox.glitch.me').then(console.log('Pinged!'))
+  await fetch('https://zirox.glitch.me').then(console.log('Pinged'))
 },240000)
