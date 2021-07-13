@@ -16,7 +16,7 @@
     "fs": "^0.0.2",
     "glob": "^7.1.7",
     "lyrics-finder": "^21.7.0",
-    "node": "^16.4.0",
+    "node": "^16.4.1",
     "node-fetch": "^2.6.1",
     "nodemon": "^2.0.11",
     "opusscript": "0.0.8",
@@ -25,7 +25,7 @@
     "spotify": "^0.3.0"
   },
   "engines": {
-    "node": "^16.4.0"
+    "node": "12.x"
   },
   "repository": {
     "url": "https://glitch.com/edit/glitch-hello-node"
