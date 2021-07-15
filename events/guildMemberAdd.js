@@ -36,13 +36,12 @@ module.exports = async (client, member) => {
 
     // MemberCount
     ctx.fillStyle = '#dd9fd0';
-    ctx.font = '35px sans-serif';
+    ctx.font = '25px sans-serif';
     let text2 = `${guild.memberCount}`;
-    let x2 = canvas.width - ctx.measureText(text2).width / 2 - 10;
-    let y2 = canvas.height - ctx.measureText(text2).height / 2 - 10;
-    ctx.fillText("slfd[asdp[f]]", 50, 50);
+    let x2 = canvas.width - 2 * ctx.measureText(text2).width - 20;
+    ctx.fillText("arrree", x2, 380);
   
     // Draw
     const attachment = new MessageAttachment(canvas.toBuffer());
-    channel.send('', attachment);
+    channel.send('narin pls', attachment);
 };
