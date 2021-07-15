@@ -22,15 +22,15 @@ module.exports = async (client, member) => {
     let x = canvas.width / 2 - ctx.measureText(text).width / 2;
     ctx.fillText(text, x, 250);
 
-   // MemberCount
+    // MemberCount
     ctx.fillStyle = '#dd9fd0';
     ctx.font = '30px sans-serif';
     let text2 = guild.memberCount();
-    let x = canvas.width - ctx.measureText(text2).width / 2 - 10;
-    let y = canvas.height - ctx.measureText(text2).height / 2 - 10;
-    ctx.fillText(text2, x, y);
-  
-  // User avatar image
+    let x2 = canvas.width - ctx.measureText(text).width / 2 - 10;
+    let y2 = canvas.height - ctx.measureText(text).height / 2 - 10;
+    ctx.fillText(text, x2, y2);
+
+    // User avatar image
     ctx.beginPath();
     ctx.arc(375, 125, 75, 0, Math.PI*2, true);
     ctx.clip();
