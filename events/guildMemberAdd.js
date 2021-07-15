@@ -15,20 +15,12 @@ module.exports = async (client, member) => {
     const background = await loadImage("https://cdn.glitch.com/7e9d342b-ad04-4e6e-8940-412aa3c82965%2Fbackground.png?v=1620494059517");
     ctx.drawImage(background, 0, 0, 750, 400);
 
-    // Text
+    /*// Text
     ctx.fillStyle = '#dd9fd0';
     ctx.font = '35px sans-serif';
     let text = `${member.user.tag}`;
     let x = canvas.width / 2 - ctx.measureText(text).width / 2;
     ctx.fillText(text, x, 250);
-
-    // MemberCount
-    ctx.fillStyle = '#dd9fd0';
-    ctx.font = '30px sans-serif';
-    let text2 = `${guild.memberCount}`;
-    let x2 = canvas.width - ctx.measureText(text2).width / 2 - 10;
-    let y2 = canvas.height - ctx.measureText(text2).height / 2 - 10;
-    ctx.fillText(text2, 0, 0);
 
     // User avatar image
     ctx.beginPath();
@@ -40,8 +32,16 @@ module.exports = async (client, member) => {
     const avatar = await loadImage(member.user.displayAvatarURL({
       format: 'png',
     }));
-    ctx.drawImage(avatar, 300, 50, 150, 150);
+    ctx.drawImage(avatar, 300, 50, 150, 150);*/
 
+    // MemberCount
+    ctx.fillStyle = '#dd9fd0';
+    ctx.font = '35px sans-serif';
+    let text2 = `${guild.memberCount}`;
+    let x2 = canvas.width - ctx.measureText(text2).width / 2 - 10;
+    let y2 = canvas.height - ctx.measureText(text2).height / 2 - 10;
+    ctx.fillText("slfd[asdp[f]]", 50, 50);
+  
     // Draw
     const attachment = new MessageAttachment(canvas.toBuffer());
     channel.send('', attachment);
