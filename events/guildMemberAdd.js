@@ -41,12 +41,20 @@ module.exports = async (client, member) => {
     }));
     ctx.drawImage(avatar, 300, 50, 150, 150);
   
-    let wlcmsgs = ['text 0' ,
+    let wlcmsgs = ['text 0',
                   'text 1',
                   'text 2',
-                  'text 3'];
+                  'text 3',
+                  'text 4',
+                  'text 5',
+                  'text 6',
+                  'text 7',
+                  'text 8',
+                  'text 9',
+                  'text 10'];
   
     // Draw
     const attachment = new MessageAttachment(canvas.toBuffer());
-    channel.send('', attachment);
+    let num = Math.floor(Math.random() * (wlcmsgs.length-1));
+    channel.send(`${member} ${wlcmsgs[num]}`, attachment);
 };
