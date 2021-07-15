@@ -25,10 +25,10 @@ module.exports = async (client, member) => {
     // MemberCount
     ctx.fillStyle = '#dd9fd0';
     ctx.font = '30px sans-serif';
-    let text2 = '${guild.memberCount}';
-    let x2 = canvas.width - ctx.measureText(text).width / 2 - 10;
-    let y2 = canvas.height - ctx.measureText(text).height / 2 - 10;
-    ctx.fillText(text, x2, y2);
+    let text2 = `${guild.memberCount}`;
+    let x2 = canvas.width - ctx.measureText(text2).width / 2 - 10;
+    let y2 = canvas.height - ctx.measureText(text2).height / 2 - 10;
+    ctx.fillText(text2, 0, 0);
 
     // User avatar image
     ctx.beginPath();
