@@ -18,14 +18,14 @@ module.exports = async (client, member) => {
     // Text
     ctx.fillStyle = '#dd9fd0';
     ctx.font = '35px sans-serif';
-    let text = `${member.user.tag}`;
+    let text = `@${member.user.tag}`;
     let x = canvas.width / 2 - ctx.measureText(text).width / 2;
     ctx.fillText(text, x, 250);
 
     // MemberCount
     ctx.fillStyle = '#dd9fd0';
     ctx.font = '25px sans-serif';
-    let text2 = `${guild.memberCount}`;
+    let text2 = `Member# ${guild.memberCount}`;
     let x2 = canvas.width - 2 * ctx.measureText(text2).width - 10;
     ctx.fillText(text2, x2, 380);
   
