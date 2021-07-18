@@ -26,7 +26,7 @@ module.exports = async (client, member) => {
     ctx.fillStyle = '#000000';
     ctx.font = '25px sans-serif';
     let text2 = `Member#${guild.memberCount}`;
-    let x2 = canvas.width - 2 * ctx.measureText(text2).width - 10;
+    let x2 = canvas.width / 2 - ctx.measureText(text2).width / 2;
     ctx.fillText(text2, x2, 340);
   
     // User avatar image
@@ -57,7 +57,7 @@ module.exports = async (client, member) => {
     const attachment = new MessageAttachment(canvas.toBuffer());
     let num = Math.floor(Math.random() * (wlcmsgs.length-1));
     channel.send(`${member} ${wlcmsgs[num]}`, attachment).then(message => {
-          message.react(`<a:HesamGreeting:866306735420473375>`);
-          message.react(`<a:HesamGreeting:866306735420473375>`nabin agha nabin =))))))));
-     } agha dast nazan =)))
+      message.react(`<a:HesamGreeting:866306735420473375>`);
+      message.react(`<a:HesamGreeting1:866306648755011644>`);
+    });
 };
