@@ -4,7 +4,7 @@ exports.run = async (client, message) => {
   message.channel.send(
       new MessageEmbed()
         .setAuthor(
-          `Erph Social Media`,
+          `Saynasa Social Media`,
            "https://cdn.glitch.com/88d04f2d-1085-4493-a223-9abd169835de%2F20210718_015659.gif?v=1626562688157"
         )
         .setColor("CD00FF")
