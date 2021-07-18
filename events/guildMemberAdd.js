@@ -56,5 +56,5 @@ module.exports = async (client, member) => {
     // Draw
     const attachment = new MessageAttachment(canvas.toBuffer());
     let num = Math.floor(Math.random() * (wlcmsgs.length-1));
-    channel.send(`${member} ${wlcmsgs[num]}`, attachment).then(message => message.react(`<:peepoScammer:841789232535961640>`));
+    channel.send(`${member} ${wlcmsgs[num]}`, attachment).then(message => message.react(`<a:HesamGreeting:866306735420473375>`,`<a:HesamGreeting1:866306648755011644>`));
 };
