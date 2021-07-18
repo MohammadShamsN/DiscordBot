@@ -16,14 +16,14 @@ module.exports = async (client, member) => {
     ctx.drawImage(background, 0, 0, 750, 400);
 
     // Text
-    ctx.fillStyle = '#FFFF00'
+    ctx.fillStyle = '#F8F8F9'
     ctx.font = '35px sans-serif';
     let text = `@${member.user.tag}`;
     let x = canvas.width / 2 - ctx.measureText(text).width / 2;
     ctx.fillText(text, x, 300);
 
     // MemberCount
-    ctx.fillStyle = '#FFFF00';
+    ctx.fillStyle = '#F8F8F9';
     ctx.font = '25px sans-serif';
     let text2 = `Member#${guild.memberCount}`;
     let x2 = canvas.width / 2 - ctx.measureText(text2).width / 2;
