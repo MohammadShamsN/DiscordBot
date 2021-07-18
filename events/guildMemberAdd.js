@@ -42,13 +42,13 @@ module.exports = async (client, member) => {
     ctx.drawImage(avatar, 300, 115, 150, 150);
   
     let wlcmsgs = ['text 0',
-                  'text 1',
-                  'text 2',
-                  'text 3',
-                  'text 4',
-                  'text 5',
-                  'text 6',
-                  'text 7',
+                  ', Welcome To Goodarzi Fam',
+                  ', joined the party.',
+                  ', just showed up!',
+                  ', just landed.',
+                  ', is here.',
+                  ', hopped into the server.',
+                  ', We hope you brought pizza.',
                   'text 8',
                   'text 9',
                   'text 10'];
