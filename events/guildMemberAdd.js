@@ -16,11 +16,11 @@ module.exports = async (client, member) => {
     ctx.drawImage(background, 0, 0, 750, 400);
 
     // Text
-    ctx.fillStyle = '#dd9fd0';
+    ctx.fillStyle = '#dd9fd0'
     ctx.font = '35px sans-serif';
     let text = `@${member.user.tag}`;
     let x = canvas.width / 2 - ctx.measureText(text).width / 2;
-    ctx.fillText(text, x, 250);
+    ctx.fillText(text, x, 300);
 
     // MemberCount
     ctx.fillStyle = '#dd9fd0';
@@ -31,7 +31,7 @@ module.exports = async (client, member) => {
   
     // User avatar image
     ctx.beginPath();
-    ctx.arc(375, 125, 75, 0, Math.PI*2, true);
+    ctx.arc(375, 190, 70, 0, Math.PI*2, true);
     ctx.clip();
     ctx.closePath();
     ctx.stroke();
@@ -39,7 +39,7 @@ module.exports = async (client, member) => {
     const avatar = await loadImage(member.user.displayAvatarURL({
       format: 'png',
     }));
-    ctx.drawImage(avatar, 300, 50, 150, 150);
+    ctx.drawImage(avatar, 300, 115, 150, 150);
   
     let wlcmsgs = ['text 0',
                   'text 1',
