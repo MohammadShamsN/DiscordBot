@@ -5,7 +5,7 @@ exports.run = async (client, message) => {
       new MessageEmbed()
         .setAuthor(
           `Hesamadl Social Media`,
-           "https://cdn.glitch.com/88d04f2d-1085-4493-a223-9abd169835de%2F20210718_015659.gif?v=1626562688157"
+           "https://cdn.glitch.com/88d04f2d-1085-4493-a223-9abd169835de%2F20210718_155158.gif?v=1626612985588"
         )
         .setColor("FF7500")
         .setThumbnail("https://cdn.glitch.com/88d04f2d-1085-4493-a223-9abd169835de%2FADL.PNG?v=1626609399316")

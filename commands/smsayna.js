@@ -5,7 +5,7 @@ exports.run = async (client, message) => {
       new MessageEmbed()
         .setAuthor(
           `Saynasa Social Media`,
-           "https://cdn.glitch.com/88d04f2d-1085-4493-a223-9abd169835de%2F20210718_015659.gif?v=1626562688157"
+           "https://cdn.glitch.com/88d04f2d-1085-4493-a223-9abd169835de%2F20210718_155407.gif?v=1626612977276"
         )
         .setColor("CD00FF")
         .setThumbnail("https://cdn.glitch.com/88d04f2d-1085-4493-a223-9abd169835de%2FUntitled-22.png?v=1626609384085")
