@@ -16,18 +16,18 @@ module.exports = async (client, member) => {
     ctx.drawImage(background, 0, 0, 750, 400);
 
     // Text
-    ctx.fillStyle = '#dd9fd0'
+    ctx.fillStyle = '#000000'
     ctx.font = '35px sans-serif';
     let text = `@${member.user.tag}`;
     let x = canvas.width / 2 - ctx.measureText(text).width / 2;
     ctx.fillText(text, x, 300);
 
     // MemberCount
-    ctx.fillStyle = '#dd9fd0';
+    ctx.fillStyle = '#000000';
     ctx.font = '25px sans-serif';
     let text2 = `Member#${guild.memberCount}`;
     let x2 = canvas.width - 2 * ctx.measureText(text2).width - 10;
-    ctx.fillText(text2, x2, 380);
+    ctx.fillText(text2, x2, 340);
   
     // User avatar image
     ctx.beginPath();
@@ -56,5 +56,5 @@ module.exports = async (client, member) => {
     // Draw
     const attachment = new MessageAttachment(canvas.toBuffer());
     let num = Math.floor(Math.random() * (wlcmsgs.length-1));
-    channel.send(`${member} ${wlcmsgs[num]}`, attachment).then(message => message.react(`<a:HesamGreeting:866306735420473375>`,`<a:HesamGreeting1:866306648755011644>`));
+    channel.send(`${member} ${wlcmsgs[num]}`, attachment).then(message => message.react{(`<a:HesamGreeting:866306735420473375>`,`<a:HesamGreeting1:866306648755011644>`));
 };
