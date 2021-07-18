@@ -41,17 +41,17 @@ module.exports = async (client, member) => {
     }));
     ctx.drawImage(avatar, 300, 115, 150, 150);
   
-    let wlcmsgs = ['text 0',
-                  ', Welcome To Goodarzi Fam',
+    let wlcmsgs = [', Welcom To Goodarzi Fam',
+                  'Hey, Welcom To Goodarzi Fam',
                   ', joined the party.',
                   ', just showed up!',
                   ', just landed.',
                   ', is here.',
                   ', hopped into the server.',
                   ', We hope you brought pizza.',
-                  'text 8',
-                  'text 9',
-                  'text 10'];
+                  ', Good to see you',
+                  ', Say hi!',
+                  ', Glad youre here'];
   
     // Draw
     const attachment = new MessageAttachment(canvas.toBuffer());
