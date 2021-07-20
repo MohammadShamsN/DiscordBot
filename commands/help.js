@@ -1,31 +1,36 @@
 const { MessageEmbed } = require("discord.js");
 
 exports.run = async (client, message) => {
-  const commands = 
-  `<:Twitch:841790517460860968> +Twitch
-   <:Instagram:841790627549282435> +Instagram
-   <:Youtube:841790561286357012> +Youtube
-   <:Telegram:841790593037238335> +Telegram
-   <:Twitter:841790459239989248> +Twitter
-   <:discord:841959253082374145> +Discord
-   <:peepoScammer:841789232535961640> +Donate
-   📱 +SM
-   💻 +PC
-   🎙 +Mic 
-   🎵 +MusicCommands ` ;
-   
+  const commands = `connect\ : join the voice channel you are in
+   disconnect\ : leave the voice channel you are in
+   play <Song Name or url>\ : play songs from youtube
+   pause\ : pause currently playing songs in the server
+   resume\ : resume paused songs in the server
+   queue\ : shows the song queue of the server
+   skip\ : skips to next song in the queue
+   skipto <Target number>\ : Multiple skips until target
+   stop\ : stops the song and clears the queue
+   volume <volume count or none>\ : see or adjust volume of songs
+   np\ : see now playing song
+   lyrics\ : get lyrics of current song
+   shuffle\ : shuffle and randomize the queue
+   invite\ : get invite link for the bot
+   loop\ : enable / disable loop for the currently playing song
+   remove <Target number>\ : remove a song from the queue
+   help\ : to see this command`;
+
   const revised = commands
     .split("\n")
-    .map((x) => "• " + x.trim())
+    .map((x) => "• " + client.config.prefix + x.trim())
     .join("\n");
 
   message.channel.send(
     new MessageEmbed()
       .setAuthor(
-        "Z1ROX Help Commands",
-        "https://cdn.glitch.com/7e9d342b-ad04-4e6e-8940-412aa3c82965%2F20210506_124716.png?v=1620738180348"
+        "Gachi Music Bot Commands Help",
+        ""
       )
-      .setColor("FF0000")
+      .setColor("00C6FF")
       .setTimestamp()
       .setDescription(revised)
   );
