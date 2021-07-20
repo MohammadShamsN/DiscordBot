@@ -12,7 +12,7 @@ module.exports = async (client, member) => {
     const ctx = canvas.getContext('2d');
 
     // Background image
-    const background = await loadImage("https://cdn.glitch.com/88d04f2d-1085-4493-a223-9abd169835de%2FPicsArt_07-15-01.10.49.jpg?v=1626383611754");
+    const background = await loadImage("https://cdn.glitch.com/88d04f2d-1085-4493-a223-9abd169835de%2FPicsArt_07-20-08.23.48.jpg?v=1626801886938");
     ctx.drawImage(background, 0, 0, 750, 400);
 
     // Text
