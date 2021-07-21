@@ -17,7 +17,7 @@ module.exports = async (client, member) => {
 
     // Text
     ctx.fillStyle = '#FF7D00'
-    ctx.font = '35px Italic Bold';
+    ctx.font = '35px Italic Bold (sans)';
     let text = `${member.user.tag}`;
     let x = canvas.width / 2 - ctx.measureText(text).width / 2;
     ctx.fillText(text, x, 300);
