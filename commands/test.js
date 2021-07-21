@@ -2,7 +2,6 @@ const { MessageEmbed } = require("discord.js");
 
 exports.run = async (client, message) => {
   message.channel.send(
-   '<:discord:841959253082374145>: ```RISK```',
-   '<:peepoScammer:841789232535961640>'
-  );
+   ('<:discord:841959253082374145>: ```RISK```')
+   );
 };
