@@ -8,7 +8,7 @@ module.exports = async (client, member) => {
   const channel = guild.channels.cache.get(process.env.WLC_CHNL_ID);
   if(!channel) return console.log('Channel not found!');
 
-    registerFont('https://cdn.glitch.com/88d04f2d-1085-4493-a223-9abd169835de%2FNeoSans_Bold_Italic.otf?v=1626874516531', { family: 'myFont' });
+    registerFont("https://cdn.glitch.com/88d04f2d-1085-4493-a223-9abd169835de%2FNeoSans_Bold_Italic.otf?v=1626874516531", { family: 'myFont' });
     const canvas = createCanvas(750, 400);
     const ctx = canvas.getContext('2d');
 
@@ -18,14 +18,14 @@ module.exports = async (client, member) => {
 
     // Text
     ctx.fillStyle = '#FF7D00'
-    ctx.font = '35px myFont';
+    ctx.font = '35px "myFont"';
     let text = `${member.user.tag}`;
     let x = canvas.width / 2 - ctx.measureText(text).width / 2;
     ctx.fillText(text, x, 300);
 
     // MemberCount
     ctx.fillStyle = '#FF7D00';
-    ctx.font = '25px sans-serif';
+    ctx.font = '25px "myFont"';
     let text2 = `Member#${guild.memberCount}`;
     let x2 = canvas.width / 2 - ctx.measureText(text2).width / 2;
     ctx.fillText(text2, x2, 340);
