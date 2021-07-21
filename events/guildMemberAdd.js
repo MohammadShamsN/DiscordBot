@@ -8,7 +8,7 @@ module.exports = async (client, member) => {
   const channel = guild.channels.cache.get(process.env.WLC_CHNL_ID);
   if(!channel) return console.log('Channel not found!');
 
-    registerFont("https://cdn.glitch.com/88d04f2d-1085-4493-a223-9abd169835de%2FNeoSans_Bold_Italic.otf?v=1626874516531", { family: 'myFont' });
+    registerFont('font.ttf', { family: 'myFont' });
     const canvas = createCanvas(750, 400);
     const ctx = canvas.getContext('2d');
 
