@@ -1,4 +1,4 @@
-const { createCanvas, loadImage, Canvas } = require('canvas');
+const { registerFont, createCanvas, loadImage, Canvas } = require('canvas');
 const { MessageAttachment } = require('discord.js');
 
 module.exports = async (client, member) => {
@@ -8,6 +8,7 @@ module.exports = async (client, member) => {
   const channel = guild.channels.cache.get(process.env.WLC_CHNL_ID);
   if(!channel) return console.log('Channel not found!');
 
+    registerFont('comicsans.ttf', { family: 'myFont' })
     const canvas = createCanvas(750, 400);
     const ctx = canvas.getContext('2d');
 
@@ -17,7 +18,7 @@ module.exports = async (client, member) => {
 
     // Text
     ctx.fillStyle = '#FF7D00'
-    ctx.font = '35px Italic-Bold (sans)';
+    ctx.font = '35px myFont';
     let text = `${member.user.tag}`;
     let x = canvas.width / 2 - ctx.measureText(text).width / 2;
     ctx.fillText(text, x, 300);
