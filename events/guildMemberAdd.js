@@ -26,7 +26,7 @@ module.exports = async (client, member) => {
     // MemberCount
     ctx.fillStyle = '#FF7D00';
     ctx.font = '25px "myFont"';
-    let text2 = `Member#${guild.memberCount}`;
+    let text2 = `Member ${guild.memberCount}`;
     let x2 = canvas.width / 2 - ctx.measureText(text2).width / 2;
     ctx.fillText(text2, x2, 340);
   
