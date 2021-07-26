@@ -18,5 +18,9 @@ exports.run = async (client, message) => {
     new MessageEmbed()
       .setDescription("**Skipped the music :white_check_mark: **")
       .setColor("BLUE")
-  );
+  ).then(message => {
+      message.react(`<a:HesamGreetin:866306735420473375>`);
+      message.react(`<a:HesamGreeting1:866306648755011644>`);
+    });
+    
 };
