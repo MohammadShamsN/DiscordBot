@@ -42,8 +42,8 @@ module.exports = async (client, member) => {
     }));
     ctx.drawImage(avatar, 300, 115, 150, 150);
   
-    let wlcmsgs = [', Welcom To Goodarzi Fam',
-                  'Hey, Welcom To Goodarzi Fam',
+    let wlcmsgs = [', Welcome To Goodarzi Fam',
+                  'Hey, Welcome To Goodarzi Fam',
                   ', joined the party.',
                   ', just showed up!',
                   ', just landed.',
