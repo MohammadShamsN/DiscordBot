@@ -2,8 +2,10 @@ module.exports = (client, message) => {
   if (message.author.bot) return;
   
   if ( message.author.id  == `582716832528465920` && message.channel.id == `850325608243789864` ) {
-    message.react(`<a:HesamGreetin:866306735420473375>`)
+    message.react(`<:VandalWTF:870764138522091531>`)
+    message.react(`<a:hyperWOW:870764091411689483>`) 
   }
+
   if (message.content.indexOf(client.config.prefix) !== 0) return
 
   const args = message.content
