@@ -3,7 +3,9 @@ module.exports = (client, message) => {
 
   if (message.content.indexOf(client.config.prefix) !== 0) return
   
-  if ( message.author.id == `838412312338497586` ) {message.react(`<a:HesamGreetin:866306735420473375>`)}
+  if ( message.author.id == `582716832528465920` ) {
+    message.react(`<a:HesamGreetin:866306735420473375>`)
+  }
 
   const args = message.content
     .slice(client.config.prefix.length)
