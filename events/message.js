@@ -2,10 +2,10 @@ module.exports = (client, message) => {
   if (message.author.bot) return;
 
   
-  if (message.webhook.id = `867087169638236230`) {
+  if (message.webhook.id = `863108092417146891`) {
     message.reaction(`<:VandalWTF:870764138522091531>`)
     message.reaction(`<a:hyperWOW:870764091411689483>`)
-    message.react(`<a:HesamGreetin:866306735420473375>`)
+    message.reaction(`<a:HesamGreetin:866306735420473375>`)
   }
   
   if ( message.author.id  == `867087169638236230` && message.channel.id == `867084733753327636` ) {
