@@ -8,8 +8,8 @@ module.exports = (client, message) => {
   
   if (message.author.bot) return;
   
-  if ( message.author.id  == `867087169638236230` && message.channel.id == `867084733753327636` ) {
-    message.react(`<:ErphYEP:870764113926684722>`)
+  if ( message.author.id  == `509982147918954507` && message.channel.id == `867084733753327636` ) {
+    message.react(`<:Pog:871814464939393084>`)
   }
  
   if ( message.author.id == `867087169638236230` && message.channel.id == `867084733753327636` ) {
