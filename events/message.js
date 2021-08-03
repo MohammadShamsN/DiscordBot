@@ -4,6 +4,14 @@ module.exports = (client, message) => {
     message.react(`<:Pog:871814464939393084>`)
   }
   
+     if ( message.webhookID == `872156540856057866` && message.channel.id == `867084733753327636`) {
+    message.react(`<:sepahbodmorghi:872157619442315294>`)
+  }
+  
+  if ( message.webhookID == `872156766669004820` && message.channel.id == `867084733753327636`) {
+    message.react(`<:Emam:872157712128028742>`)
+  }
+  
   if (message.author.bot) return;
   
   if ( message.author.id  == `509982147918954507` && message.channel.id == `867084733753327636` ) {
