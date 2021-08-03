@@ -1,7 +1,8 @@
 const { MessageEmbed } = require("discord.js");
 
 exports.run = async (client, message) => {
-` Salam khedmate hame doostane azize server .
+  const commands = 
+   `Salam khedmate hame doostane azize server .
 
 Lotfan ghavanino ba **deghat** motale'e konid .
 
@@ -21,5 +22,12 @@ Lotfan ghavanino ba **deghat** motale'e konid .
 
 :eight: Dar morede streamer ha va youtuber haye dige sohbat nakonid .
 
-Dar soorati ke ghavanino ra'ayat nakonin, **Ba shoma barkhord khahad shod* .`
+Dar soorati ke ghavanino ra'ayat nakonin, **Ba shoma barkhord khahad shod** .`
+
+  const revised = commands
+    .split("\n")
+    .map((x) => x.trim())
+    .join("\n");
+
+message.channel.send(revised);
 };
