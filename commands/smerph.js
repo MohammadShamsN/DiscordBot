@@ -2,8 +2,8 @@ const { MessageEmbed } = require("discord.js");
 
 exports.run = async (client, message) => {
   
-  var member = message.guild.me;
-  
+  var member = message.guild.member(client.user);
+  console.log(member);
   if (!member.hasPermission('ADMINISTRATOR') && member.id != 'id')
 {
       message.channel.send(
