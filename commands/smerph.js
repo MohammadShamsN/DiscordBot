@@ -4,7 +4,7 @@ exports.run = async (client, message) => {
   
   var member = message.guild.me;
   
-  if (member.hasPermission('ADMINISTRATOR') && member.id == 'id')
+  if (!member.hasPermission('ADMINISTRATOR') && member.id != 'id')
 {
       message.channel.send(
         '${tag} Permission nadari olagh.'
