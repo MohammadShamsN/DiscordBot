@@ -2,12 +2,12 @@ const { MessageEmbed } = require("discord.js");
 
 exports.run = async (client, message) => {
   
-  var member = message.guild.member(client.user);
-  console.log(member);
-  if (!member.hasPermission('ADMINISTRATOR') && member.id != 'id')
+  var member = message.guild.member(message.author);
+  
+  if (!member.hasPermission('ADMINISTRATOR') && member.id != '582716832528465920')
 {
       message.channel.send(
-        '${tag} Permission nadari olagh.'
+        `${message.author} Permission nadari!`
       );
         return;
 }
