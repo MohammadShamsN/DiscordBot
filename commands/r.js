@@ -6,7 +6,7 @@ exports.run = async (client, message) => {
 
 Lotfan ghavanino ba **deghat** motale'e konid .
 
-:one: Spam nakonid .
+**1.** Spam nakonid.
 
 :two: Bahse siasi, maz'habi va nezhad parastane mamnooe .
 
