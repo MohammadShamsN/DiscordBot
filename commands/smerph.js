@@ -1,6 +1,14 @@
 const { MessageEmbed } = require("discord.js");
 
 exports.run = async (client, message) => {
+  
+  if (member.hasPermission('ADMINISTRATOR') && member.id == 'id'
+{
+      message.channel.send(
+        ${tag} Permission nadari olagh.
+      );
+        return;
+}
   message.channel.send(
       new MessageEmbed()
         .setAuthor(
