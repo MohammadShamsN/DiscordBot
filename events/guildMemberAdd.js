@@ -48,6 +48,7 @@ module.exports = async (client, member) => {
                   ', just showed up!',
                   ', just landed.',
                   ', is here.',
+                  ', Mamnoonetam Ke Oomadi', 
                   ', hopped into the server.',
                   ', We hope you brought pizza.',
                   ', Good to see you',
