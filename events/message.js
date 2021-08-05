@@ -16,7 +16,7 @@ module.exports = (client, message) => {
     message.react(`<:Emam:872157712128028742>`)
   }
   
-  if (message.webhookID == `https://discord.com/api/webhooks/872756124472995870` && message.channel.id == `872642742101094420`) {
+  if (message.webhookID == `872756124472995870` && message.channel.id == `872642742101094420`) {
     message.react(`<:Emam:872157712128028742`)
   }
   
