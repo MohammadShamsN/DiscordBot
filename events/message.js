@@ -1,6 +1,6 @@
 module.exports = (client, message) => {
   
-   if ( message.webhookID == `867087169638236230` && message.channel.id == `867084733753327636`) {
+   if ( message.webhookID == `872750036675596388` && message.channel.id == `872642682646822962`) {
     message.react(`<:Pog:871814464939393084>`)
   }
   
