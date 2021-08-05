@@ -31,7 +31,7 @@ module.exports = (client, message) => {
     message.react(`<a:POGGGIESS:872812506203193354>`)
   }
   
-  if ( message.author.id == `582716832528465920`) {
+  if ( message.author.id == ``) {
     message.react(`<a:HesamGreetin:866306735420473375>`)
   }
   
