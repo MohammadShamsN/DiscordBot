@@ -1,7 +1,7 @@
 module.exports = (client, message) => {
   
    if ( message.webhookID == `872750036675596388` && message.channel.id == `872642682646822962`) {
-    message.react(`<:Pog:871814464939393084>`)
+    message.react(`<:erphGachi:872781918809260053>`)
   }
   
   if ( message.webhookID == `872756029593649153` && message.channel.id ==`872642742101094420`) {
