@@ -20,6 +20,10 @@ module.exports = (client, message) => {
     message.react(`<:Emam:872157712128028742`)
   }
   
+  if (message.author.id == `159985870458322944`  && message.channel.id == ``) {
+    message.react(`<a:POGGGIESS:872812506203193354>`)
+  }
+  
   if (message.author.bot) return;
   
   if ( message.channel.id == `753976707190489218` ) {
@@ -27,7 +31,7 @@ module.exports = (client, message) => {
     message.react(`<:Pog:871814464939393084>`)
   }
  
-  if (message.channel.id == `729399642504298566`) {
+  if (message.author.id == `159985870458322944`  && message.channel.id == ``) {
     message.react(`<a:POGGGIESS:872812506203193354>`)
   }
   
