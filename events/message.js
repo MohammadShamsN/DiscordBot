@@ -22,7 +22,8 @@ module.exports = (client, message) => {
   
   if (message.author.bot) return;
   
-  if ( message.author  == `509982147918954507` && message.channel.id == `867084733753327636` ) {
+  if ( message.channel.id == `753976707190489218` ) {
+    message.react(`<:POGGIES:872777790204833803>`)
     message.react(`<:Pog:871814464939393084>`)
   }
  
