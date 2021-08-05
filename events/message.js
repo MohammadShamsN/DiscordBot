@@ -4,7 +4,11 @@ module.exports = (client, message) => {
     message.react(`<:Pog:871814464939393084>`)
   }
   
-     if ( message.webhookID == `872156540856057866` && message.channel.id == `867084733753327636`) {
+  if ( message.webhookID == `872756029593649153` && message.channel.id ==`872642742101094420`) {
+    message.react(`<:Pog:871814464939393084`)
+  }
+  
+  if ( message.webhookID == `872156540856057866` && message.channel.id == `867084733753327636`) {
     message.react(`<:sepahbodmorghi:872157619442315294>`)
   }
   
