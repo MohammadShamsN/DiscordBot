@@ -27,6 +27,10 @@ module.exports = (client, message) => {
     message.react(`<:Pog:871814464939393084>`)
   }
  
+  if (message.channel.id == `729399642504298566`) {
+    message.react(`<a:POGGGIESS:872812506203193354>`)
+  }
+  
   if ( message.author.id == `582716832528465920`) {
     message.react(`<a:HesamGreetin:866306735420473375>`)
   }
