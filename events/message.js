@@ -30,10 +30,7 @@ module.exports = (client, message) => {
     message.react(`<:POGGIES:872777790204833803>`)
     message.react(`<:Pog:871814464939393084>`)
   }
-  
-  if ( message.author.id == ``) {
-    message.react(`<a:HesamGreetin:866306735420473375>`)
-  }
+
   
   if (message.content.indexOf(client.config.prefix) !== 0) return
 
