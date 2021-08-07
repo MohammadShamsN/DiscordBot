@@ -1,5 +1,5 @@
 {
-  "name": "Gachi bot",
+  "name": "Gachi",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
@@ -9,23 +9,23 @@
   "dependencies": {
     "canvas": "^2.8.0",
     "discord-ytdl-core": "^5.0.4",
-    "discord.js": "^12.5.3",
+    "discord.js": "^13.0.0",
     "dotenv": "^10.0.0",
     "dotenv-safe": "^8.2.0",
     "express": "^4.17.1",
     "fs": "^0.0.2",
     "glob": "^7.1.7",
     "lyrics-finder": "^21.7.0",
-    "node": "^16.5.0",
+    "node": "^16.6.1",
     "node-fetch": "^2.6.1",
     "nodemon": "^2.0.12",
     "opusscript": "0.0.8",
     "yt-search": "^2.9.0",
-    "ytdl-core": "^4.9.0",
+    "ytdl-core": "^4.9.1",
     "spotify": "^0.3.0"
   },
   "engines": {
-    "node": "12.x"
+    "node": "^16.6.1"
   },
   "repository": {
     "url": "https://glitch.com/edit/glitch-hello-node"
