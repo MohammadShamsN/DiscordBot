@@ -1,5 +1,5 @@
 {
-  "name": "Gachi bot",
+  "name": "Gachi",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
@@ -28,7 +28,7 @@
     "node": "12.x"
   },
   "repository": {
-    "url": "https://glitch.com/edit/glitch-hello-node"
+    "url": "https://glitch.com/edit/bote-erph"
   },
   "license": "MIT",
   "keywords": [
