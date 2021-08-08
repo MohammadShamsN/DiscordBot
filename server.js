@@ -122,17 +122,7 @@ setInterval(async () => {
               subid = req.body.subscription.id;
           }
           else if(req.body.subscription['status'] == 'enabled' && req.body.subscription['type'] == 'stream.online') { // Stream is live
-              getAndSendInfo(req, res);
-          }
-      });
-
-      // Starting the server
-      app.listen(3000, () => {
-          console.log('[EXPRESS] Started listening on port 3000');
-      });
-
-async function getAndSendInfo(req, res) {
-  var userid = req.body.subscription.condition['broadcaster_user_id'];
+              var userid = req.body.subscription.condition['broadcaster_user_id'];
               var username = req.body.event['broadcaster_user_name'];
               var game; // Don't touch this
               var viewers; // Don't touch this
@@ -142,7 +132,7 @@ async function getAndSendInfo(req, res) {
 
               // ===================================================================================================================
               // Getting stream information
-              await request.get( {
+              request.get( {
                   url: `https://api.twitch.tv/helix/streams?user_id=${userid}`,
                   headers: {
                       'Content-Type': 'application/json',
@@ -154,21 +144,17 @@ async function getAndSendInfo(req, res) {
                       console.log(error);
 
                   var obj = JSON.parse(body);
-                  game = await obj.data[0].game_name;
-                  viewers = await obj.data[0].viewer_count;
-                  thumbnail = await obj.data[0].thumbnail_url;
+                  game = obj.data[0].game_name;
+                  viewers = obj.data[0].viewer_count;
+                  thumbnail = obj.data[0].thumbnail_url;
                   if(thumbnail !== undefined) {
-                      thumbnail = await thumbnail.replace("{width}", "1920");
-                      thumbnail = await thumbnail.replace("{height}", "1080");
+                      thumbnail = thumbnail.replace("{width}", "1920");
+                      thumbnail = thumbnail.replace("{height}", "1080");
                   }
-                  title = await obj.data[0].title;
-                  streamurl = await `https://twitch.tv/${obj.data[0].user_login}`;
-              });
-              // ===================================================================================================================
-
-              // ===================================================================================================================
-              // Sending message to discord
-              for(var i = 0; i < streamers.length; i++) {
+                  title = obj.data[0].title;
+                  streamurl = `https://twitch.tv/${obj.data[0].user_login}`;
+              }).then(() => {
+                for(var i = 0; i < streamers.length; i++) {
                   if(userid == streamers[i]) {
                       // send message to discord
                       client.channels.cache.get(process.env.ALERT_CHANNEL_ID).send(
@@ -206,4 +192,16 @@ async function getAndSendInfo(req, res) {
               }
               // ===================================================================================================================
               res.sendStatus(200);
-}
+              });
+              // ===================================================================================================================
+
+              // ===================================================================================================================
+              // Sending message to discord
+              
+          }
+      });
+
+      // Starting the server
+      app.listen(3000, () => {
+          console.log('[EXPRESS] Started listening on port 3000');
+      });
