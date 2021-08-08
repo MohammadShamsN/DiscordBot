@@ -161,34 +161,34 @@ app.post('/webhooks/callback', (req, res) => {
         for(var i = 0; i < streamers.length; i++) {
             if(userid == streamers[i]) {
                 // send message to discord
-                client.channels.get(process.env.ALERT_CHANNEL_ID).send({ embed: {
-                  color: 3447003,
-                  author: {
-                    name: client.user.username,
-                    icon_url: client.user.displayAvatarURL()
-                  },
-                  title: "This is an embed",
-                  url: "http://google.com",
-                  description: "This is a test embed to showcase what they look like and what they can do.",
-                  fields: [{
-                      name: "Fields",
-                      value: "They can have different fields with small headlines."
+                client.channels.cache.get(process.env.ALERT_CHANNEL_ID).send(
+                {
+                    embed: {
+                    color: colors[i],
+                    author: {
+                      name: username,
+                      icon_url: "https://cdn.discordapp.com/attachments/787804906006380605/867105422275903518/tenor.gif"
                     },
-                    {
-                      name: "Masked links",
-                      value: "You can put [masked links](http://google.com) inside of rich embeds."
+                    image: {
+                      url: thumbnail
                     },
-                    {
-                      name: "Markdown",
-                      value: "You can put all the *usual* **__Markdown__** inside of them."
-                    }
-                  ],
-                  timestamp: new Date(),
-                  footer: {
-                    icon_url: client.user.displayAvatarURL(),
-                    text: "© Example"
+                    thumbnail: {
+                        url: "https://cdn.discordapp.com/attachments/787804906006380605/866403877330223124/PicsArt_07-14-11.31.46.png"
+                    },
+                    title: `${username} is now live on twitch!`,
+                    url: streamurl,
+                    fields: [{
+                        name: "Game",
+                        value: game,
+                        inline: true
+                      },
+                      {
+                        name: "Viewers",
+                        value: viewers,
+                        inline: true
+                      }
+                    ]
                   }
-                }
               });
             }
             else
