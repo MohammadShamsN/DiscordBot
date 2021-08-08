@@ -1,6 +1,6 @@
 var https = require('https');
 var bodyParser = require('body-parser');
-var request = require('request');
+var request = require('request-promise');
 
 const Discord = require("discord.js");
 const fs = require("fs");
@@ -110,9 +110,13 @@ setInterval(async () => {
               }, (error, response, body) => {
                   if(error)
                       console.log(error);
-              });
+              }).catch(function(err){
+            //console.error(err); // This will print any error that was thrown in the previous error handler.
+        });
           }
-      });
+      }).catch(function(err){
+            //console.error(err); // This will print any error that was thrown in the previous error handler.
+        });
 
       app.post('/webhooks/callback', async (req, res) => {
           if(req.body.subscription['status'] == 'webhook_callback_verification_pending') {
@@ -139,20 +143,20 @@ setInterval(async () => {
                       'Client-ID': process.env.CLIENT_ID,
                       'Authorization': accessToken
                   }
-              }, async (error, response, body) => {
+              }, (error, response, body) => {
                   if(error)
                       console.log(error);
 
-                  var obj = await JSON.parse(body);
-                  game = await obj.data[0].game_name;
-                  viewers = await obj.data[0].viewer_count;
-                  thumbnail = await obj.data[0].thumbnail_url;
+                  var obj = JSON.parse(body);
+                  game = obj.data[0].game_name;
+                  viewers = obj.data[0].viewer_count;
+                  thumbnail = obj.data[0].thumbnail_url;
                   if(thumbnail !== undefined) {
                       thumbnail = thumbnail.replace("{width}", "1920");
                       thumbnail = thumbnail.replace("{height}", "1080");
                   }
-                  title = await obj.data[0].title;
-                  streamurl = await `https://twitch.tv/${obj.data[0].user_login}`;
+                  title = obj.data[0].title;
+                  streamurl = `https://twitch.tv/${obj.data[0].user_login}`;
               });
             
               // Sending message to discord
@@ -167,9 +171,9 @@ setInterval(async () => {
                             name: username,
                             icon_url: "https://cdn.discordapp.com/attachments/787804906006380605/867105422275903518/tenor.gif"
                           },
-                          /*image: {
+                          image: {
                             url: `${thumbnail}`
-                          },*/
+                          },
                           thumbnail: {
                               url: "https://cdn.discordapp.com/attachments/787804906006380605/866403877330223124/PicsArt_07-14-11.31.46.png"
                           },
