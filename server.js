@@ -31,6 +31,10 @@ var thumbnails = ['https://cdn.glitch.com/88d04f2d-1085-4493-a223-9abd169835de%2
                  'https://cdn.glitch.com/88d04f2d-1085-4493-a223-9abd169835de%2FInstaProfile_20210716_002633673-LARGE.jpg?v=1628439673323', // Logo ShayanVandal
                   'https://cdn.glitch.com/88d04f2d-1085-4493-a223-9abd169835de%2FInstaProfile_20210716_002633673-LARGE.jpg?v=1628439673323'];
 
+var emotes = ['<:erphGachi:872781918809260053>',
+             '<a:HesamGreetin:866306735420473375>',
+             '<:VandalWTF:870764138522091531>',
+             '<a:HesamGreetin:866306735420473375>'];
 const client = new Discord.Client();
 
 const config = {
@@ -137,6 +141,8 @@ setInterval(async () => {
               subid = req.body.subscription.id;
           }
           else if(req.body.subscription['status'] == 'enabled' && req.body.subscription['type'] == 'stream.online') { // Stream is live
+              res.sendStatus(200);
+            
               var userid = req.body.subscription.condition['broadcaster_user_id'];
               var username = req.body.event['broadcaster_user_name'];
               var game; // Don't touch this
@@ -176,6 +182,7 @@ setInterval(async () => {
                       // send message to discord
                       client.channels.cache.get(process.env.ALERT_CHANNEL_ID).send(
                       {
+                          content: "test",
                           embed: {
                           color: colors[i],
                           author: {
@@ -202,10 +209,11 @@ setInterval(async () => {
                             }
                           ]
                         }
+                    }).then(message => {
+                        message.react(emotes[i]);
                     });
                   }
               }
-              res.sendStatus(200);
           }
       });
 
