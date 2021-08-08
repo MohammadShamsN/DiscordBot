@@ -16,9 +16,18 @@ app.use(bodyParser.urlencoded({ extended: false }))
 var accessToken; // Don't touch this. Mersi Ah
 var subid; // Don't touch this too
 var callback = "https://bote-erph.glitch.me";
-var streamers = ['240473036']; // ID Streamer ha
-var webhooks = ['https://discord.com/api/webhooks/873874187473805322/xpSB4d8JQdmimo8Dkq6DqIXhxy8MCvXKsdAIYIl904apSkxbs3o2-0SgB45U0FrUBlCZ']; // Webhook ha
-var colors = ['000000']; // Rang ha
+var streamers = ['167583973', // Erph
+                 '260645620', // Hesamdl
+                 '186826987']; // ShayanVandal
+
+var colors = ['000000', // Erph
+              '2596be', // Hesamdl
+              'E15F19'];// ShayanVandal
+
+var thumbnails = ['https://cdn.discordapp.com/attachments/787804906006380605/866403877330223124/PicsArt_07-14-11.31.46.png', // Logo Erph
+                 '', // Logo Hesamdl
+                 '', // Logo ShayanVandal
+                 ''
 
 const client = new Discord.Client();
 
@@ -193,8 +202,6 @@ setInterval(async () => {
                         }
                     });
                   }
-                  else
-                      console.log("UserID and streamers mismatch");
               }
               res.sendStatus(200);
           }
