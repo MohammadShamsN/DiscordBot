@@ -32,9 +32,9 @@ var thumbnails = ['https://cdn.glitch.com/88d04f2d-1085-4493-a223-9abd169835de%2
                   'https://cdn.glitch.com/88d04f2d-1085-4493-a223-9abd169835de%2FInstaProfile_20210716_002633673-LARGE.jpg?v=1628439673323'];
 
 var emotes = ["<:erphGachi:872781918809260053>",
+             "<:HesamGreetin:866306735420473375>",
              "<:VandalWTF:870764138522091531>",
-             "<:VandalWTF:870764138522091531>",
-             "<:mikeWeird:873971121555378246>"];
+             "<:erphGachi:872781918809260053>"];
 const client = new Discord.Client();
 
 const config = {
@@ -210,7 +210,8 @@ setInterval(async () => {
                           ]
                         }
                     }).then(message => {
-                        message.react(emotes[i].toString());
+                        var emoji = bot.emojis.cache.get("emoji id")
+                        message.react(emoji);
                     });
                   }
               }
