@@ -31,10 +31,10 @@ var thumbnails = ['https://cdn.glitch.com/88d04f2d-1085-4493-a223-9abd169835de%2
                  'https://cdn.glitch.com/88d04f2d-1085-4493-a223-9abd169835de%2FInstaProfile_20210716_002633673-LARGE.jpg?v=1628439673323', // Logo ShayanVandal
                   'https://cdn.glitch.com/88d04f2d-1085-4493-a223-9abd169835de%2FInstaProfile_20210716_002633673-LARGE.jpg?v=1628439673323'];
 
-var emotes = ['<:erphGachi:872781918809260053>',
-             '<a:HesamGreetin:866306735420473375>',
-             '<:VandalWTF:870764138522091531>',
-             '<a:HesamGreetin:866306735420473375>'];
+var emotes = ["<:erphGachi:872781918809260053>",
+             "<:VandalWTF:870764138522091531>",
+             "<:VandalWTF:870764138522091531>",
+             "<:mikeWeird:873971121555378246>"];
 const client = new Discord.Client();
 
 const config = {
@@ -182,7 +182,7 @@ setInterval(async () => {
                       // send message to discord
                       client.channels.cache.get(process.env.ALERT_CHANNEL_ID).send(
                       {
-                          content: "test",
+                          content: `Hey @everyone, ${username}, is now live on https://www.twitch.tv/${username} ! Go check it out!`,
                           embed: {
                           color: colors[i],
                           author: {
@@ -210,7 +210,7 @@ setInterval(async () => {
                           ]
                         }
                     }).then(message => {
-                        message.react(emotes[i]);
+                        message.react(emotes[i].toString());
                     });
                   }
               }
