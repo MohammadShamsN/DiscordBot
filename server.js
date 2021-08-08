@@ -114,7 +114,7 @@ request.post(options, (error, response, body) => {
     }
 });
 
-app.post('/webhooks/callback', (req, res) => {
+async app.post('/webhooks/callback', (req, res) => {
     if(req.body.subscription['status'] == 'webhook_callback_verification_pending') {
         res.contentType('text/plain');
         res.send(req.body['challenge']);
@@ -153,6 +153,8 @@ app.post('/webhooks/callback', (req, res) => {
             }
             title = obj.data[0].title;
             streamurl = `https://twitch.tv/${obj.data[0].user_login}`;
+          
+          console.log(thumbnail);
         });
         // ===================================================================================================================
 
@@ -170,7 +172,7 @@ app.post('/webhooks/callback', (req, res) => {
                       icon_url: "https://cdn.discordapp.com/attachments/787804906006380605/867105422275903518/tenor.gif"
                     },
                     image: {
-                      url: thumbnail
+                      url: `${thumbnail}`
                     },
                     thumbnail: {
                         url: "https://cdn.discordapp.com/attachments/787804906006380605/866403877330223124/PicsArt_07-14-11.31.46.png"
@@ -179,12 +181,12 @@ app.post('/webhooks/callback', (req, res) => {
                     url: streamurl,
                     fields: [{
                         name: "Game",
-                        value: game,
+                        value: `${game}`,
                         inline: true
                       },
                       {
                         name: "Viewers",
-                        value: viewers,
+                        value: `${viewers}`,
                         inline: true
                       }
                     ]
