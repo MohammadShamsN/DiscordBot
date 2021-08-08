@@ -17,17 +17,19 @@ var accessToken; // Don't touch this. Mersi Ah
 var subid; // Don't touch this too
 var callback = "https://bote-erph.glitch.me";
 var streamers = ['167583973', // Erph
-                 '260645620', // Hesamdl
-                 '186826987']; // ShayanVandal
+                 '186826987', // Hesamdl
+                 '260645620', // ShayanVandal
+                 '240473036'];
 
 var colors = ['000000', // Erph
               '2596be', // Hesamdl
-              'E15F19'];// ShayanVandal
+              'E15F19', // ShayanVandal
+              'FF0000'];
 
-var thumbnails = ['https://cdn.discordapp.com/attachments/787804906006380605/866403877330223124/PicsArt_07-14-11.31.46.png', // Logo Erph
-                 '', // Logo Hesamdl
-                 '', // Logo ShayanVandal
-                 ''
+var thumbnails = ['https://cdn.glitch.com/88d04f2d-1085-4493-a223-9abd169835de%2FPicsArt_07-14-11.31.46.png?v=1628439675571', // Logo Erph
+                 'https://cdn.glitch.com/88d04f2d-1085-4493-a223-9abd169835de%2FADL.jpg?v=1628439673773', // Logo Hesamdl
+                 'https://cdn.glitch.com/88d04f2d-1085-4493-a223-9abd169835de%2FInstaProfile_20210716_002633673-LARGE.jpg?v=1628439673323', // Logo ShayanVandal
+                  'https://cdn.glitch.com/88d04f2d-1085-4493-a223-9abd169835de%2FInstaProfile_20210716_002633673-LARGE.jpg?v=1628439673323'];
 
 const client = new Discord.Client();
 
@@ -184,7 +186,7 @@ setInterval(async () => {
                             url: `${thumbnail}`
                           },
                           thumbnail: {
-                              url: "https://cdn.discordapp.com/attachments/787804906006380605/866403877330223124/PicsArt_07-14-11.31.46.png"
+                              url: thumbnails[i]
                           },
                           title: `${username} is now live on twitch!`,
                           url: streamurl,
