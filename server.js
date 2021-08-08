@@ -149,20 +149,20 @@ async function getAndSendInfo(req, res) {
                       'Client-ID': process.env.CLIENT_ID,
                       'Authorization': accessToken
                   }
-              }, (error, response, body) => {
+              }, async (error, response, body) => {
                   if(error)
                       console.log(error);
 
                   var obj = JSON.parse(body);
-                  game = obj.data[0].game_name;
-                  viewers = obj.data[0].viewer_count;
-                  thumbnail = obj.data[0].thumbnail_url;
+                  game = await obj.data[0].game_name;
+                  viewers = await obj.data[0].viewer_count;
+                  thumbnail = await obj.data[0].thumbnail_url;
                   if(thumbnail !== undefined) {
-                      thumbnail = thumbnail.replace("{width}", "1920");
-                      thumbnail = thumbnail.replace("{height}", "1080");
+                      thumbnail = await thumbnail.replace("{width}", "1920");
+                      thumbnail = await thumbnail.replace("{height}", "1080");
                   }
-                  title = obj.data[0].title;
-                  streamurl = `https://twitch.tv/${obj.data[0].user_login}`;
+                  title = await obj.data[0].title;
+                  streamurl = await `https://twitch.tv/${obj.data[0].user_login}`;
               });
               // ===================================================================================================================
 
