@@ -114,7 +114,7 @@ setInterval(async () => {
           }
       });
 
-      app.post('/webhooks/callback', (req, res) => {
+      app.post('/webhooks/callback', async (req, res) => {
           if(req.body.subscription['status'] == 'webhook_callback_verification_pending') {
               res.contentType('text/plain');
               res.send(req.body['challenge']);
@@ -132,14 +132,14 @@ setInterval(async () => {
 
               // ===================================================================================================================
               // Getting stream information
-              request.get( {
+              await request.get( {
                   url: `https://api.twitch.tv/helix/streams?user_id=${userid}`,
                   headers: {
                       'Content-Type': 'application/json',
                       'Client-ID': process.env.CLIENT_ID,
                       'Authorization': accessToken
                   }
-              }, async (error, response, body) => {
+              }, (error, response, body) => {
                   if(error)
                       console.log(error);
 
@@ -153,8 +153,10 @@ setInterval(async () => {
                   }
                   title = obj.data[0].title;
                   streamurl = `https://twitch.tv/${obj.data[0].user_login}`;
-              }).then(() => {
-                for(var i = 0; i < streamers.length; i++) {
+              });
+            
+              // Sending message to discord
+              for(var i = 0; i < streamers.length; i++) {
                   if(userid == streamers[i]) {
                       // send message to discord
                       client.channels.cache.get(process.env.ALERT_CHANNEL_ID).send(
@@ -190,14 +192,7 @@ setInterval(async () => {
                   else
                       console.log("UserID and streamers mismatch");
               }
-              // ===================================================================================================================
               res.sendStatus(200);
-              });
-              // ===================================================================================================================
-
-              // ===================================================================================================================
-              // Sending message to discord
-              
           }
       });
 
