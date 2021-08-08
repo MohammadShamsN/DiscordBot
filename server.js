@@ -64,7 +64,7 @@ setInterval(async () => {
 
 
 
-async function alert() {
+
       // Authenticate
       const options = {
           url: 'https://id.twitch.tv/oauth2/token',
@@ -122,7 +122,17 @@ async function alert() {
               subid = req.body.subscription.id;
           }
           else if(req.body.subscription['status'] == 'enabled' && req.body.subscription['type'] == 'stream.online') { // Stream is live
-              var userid = req.body.subscription.condition['broadcaster_user_id'];
+              getAndSendInfo(req, res);
+          }
+      });
+
+      // Starting the server
+      app.listen(3000, () => {
+          console.log('[EXPRESS] Started listening on port 3000');
+      });
+
+async function getAndSendInfo(req, res) {
+  var userid = req.body.subscription.condition['broadcaster_user_id'];
               var username = req.body.event['broadcaster_user_name'];
               var game; // Don't touch this
               var viewers; // Don't touch this
@@ -132,7 +142,7 @@ async function alert() {
 
               // ===================================================================================================================
               // Getting stream information
-              request.get( {
+              await request.get( {
                   url: `https://api.twitch.tv/helix/streams?user_id=${userid}`,
                   headers: {
                       'Content-Type': 'application/json',
@@ -153,10 +163,6 @@ async function alert() {
                   }
                   title = obj.data[0].title;
                   streamurl = `https://twitch.tv/${obj.data[0].user_login}`;
-                
-                  console.log(obj);
-                console.log(obj);
-                  console.log(obj.data);
               });
               // ===================================================================================================================
 
@@ -200,11 +206,4 @@ async function alert() {
               }
               // ===================================================================================================================
               res.sendStatus(200);
-          }
-      });
-
-      // Starting the server
-      app.listen(3000, () => {
-          console.log('[EXPRESS] Started listening on port 3000');
-      });
 }
