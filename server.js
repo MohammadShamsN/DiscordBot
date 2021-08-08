@@ -15,7 +15,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 
 var accessToken; // Don't touch this. Mersi Ah
 var subid; // Don't touch this too
-var callback = "https://8d4bc584252d.ngrok.io";
+var callback = "https://bote-erph.glitch.me";
 var streamers = ['240473036']; // ID Streamer ha
 var webhooks = ['https://discord.com/api/webhooks/873874187473805322/xpSB4d8JQdmimo8Dkq6DqIXhxy8MCvXKsdAIYIl904apSkxbs3o2-0SgB45U0FrUBlCZ']; // Webhook ha
 var colors = ['000000']; // Rang ha
@@ -161,6 +161,35 @@ app.post('/webhooks/callback', (req, res) => {
         for(var i = 0; i < streamers.length; i++) {
             if(userid == streamers[i]) {
                 // send message to discord
+                client.channels.get(process.env.ALERT_CHANNEL_ID).send({ embed: {
+                  color: 3447003,
+                  author: {
+                    name: client.user.username,
+                    icon_url: client.user.displayAvatarURL()
+                  },
+                  title: "This is an embed",
+                  url: "http://google.com",
+                  description: "This is a test embed to showcase what they look like and what they can do.",
+                  fields: [{
+                      name: "Fields",
+                      value: "They can have different fields with small headlines."
+                    },
+                    {
+                      name: "Masked links",
+                      value: "You can put [masked links](http://google.com) inside of rich embeds."
+                    },
+                    {
+                      name: "Markdown",
+                      value: "You can put all the *usual* **__Markdown__** inside of them."
+                    }
+                  ],
+                  timestamp: new Date(),
+                  footer: {
+                    icon_url: client.user.displayAvatarURL(),
+                    text: "© Example"
+                  }
+                }
+              });
             }
             else
                 console.log("UserID and streamers mismatch");
