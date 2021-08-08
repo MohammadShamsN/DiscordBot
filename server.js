@@ -64,144 +64,147 @@ setInterval(async () => {
 
 
 
+async function alert() {
+      // Authenticate
+      const options = {
+          url: 'https://id.twitch.tv/oauth2/token',
+          headers: {
+              'Accept': 'application/json',
+          },
+          json: {
+              'client_id': process.env.CLIENT_ID,
+              'client_secret': process.env.CLIENT_SECRET,
+              'grant_type': 'client_credentials'
+          }
+      }
 
-// Authenticate
-const options = {
-    url: 'https://id.twitch.tv/oauth2/token',
-    headers: {
-        'Accept': 'application/json',
-    },
-    json: {
-        'client_id': process.env.CLIENT_ID,
-        'client_secret': process.env.CLIENT_SECRET,
-        'grant_type': 'client_credentials'
-    }
-}
+      request.post(options, (error, response, body) => {
+          if(response.statusCode != 200) {
+              console.log(body);
+              return;
+          }
+          accessToken = 'Bearer ' + body['access_token'];
+          console.log(`[INFO] Access token: ${accessToken}`);
 
-request.post(options, (error, response, body) => {
-    if(response.statusCode != 200) {
-        console.log(body);
-        return;
-    }
-    accessToken = 'Bearer ' + body['access_token'];
-    console.log(`[INFO] Access token: ${accessToken}`);
-
-    // Stream live event subscription
-    for(var i = 0; i < streamers.length; i++) {
-        request.post( {
-            url: 'https://api.twitch.tv/helix/eventsub/subscriptions',
-            headers: {
-                'Content-Type': 'application/json',
-                'Client-ID': process.env.CLIENT_ID,
-                'Authorization': accessToken
-            },
-            json: {
-                "type": "stream.online",
-                "version": "1",
-                "condition": {
-                    "broadcaster_user_id": streamers[i]
-                },
-                "transport": {
-                    "method": "webhook",
-                    "callback": callback + "/webhooks/callback",
-                    "secret": process.env.CLIENT_SECRET
-                }
-            }
-        }, (error, response, body) => {
-            if(error)
-                console.log(error);
-        });
-    }
-});
-
-async app.post('/webhooks/callback', (req, res) => {
-    if(req.body.subscription['status'] == 'webhook_callback_verification_pending') {
-        res.contentType('text/plain');
-        res.send(req.body['challenge']);
-        console.log('[INFO] Callback confirmation sent');
-        subid = req.body.subscription.id;
-    }
-    else if(req.body.subscription['status'] == 'enabled' && req.body.subscription['type'] == 'stream.online') { // Stream is live
-        var userid = req.body.subscription.condition['broadcaster_user_id'];
-        var username = req.body.event['broadcaster_user_name'];
-        var game; // Don't touch this
-        var viewers; // Don't touch this
-        var thumbnail; // Don't touch this
-        var title; // Don't touch this
-        var streamurl; // Don't touch this
-
-        // ===================================================================================================================
-        // Getting stream information
-        request.get( {
-            url: `https://api.twitch.tv/helix/streams?user_id=${userid}`,
-            headers: {
-                'Content-Type': 'application/json',
-                'Client-ID': process.env.CLIENT_ID,
-                'Authorization': accessToken
-            }
-        }, (error, response, body) => {
-            if(error)
-                console.log(error);
-
-            var obj = JSON.parse(body);
-            game = obj.data[0].game_name;
-            viewers = obj.data[0].viewer_count;
-            thumbnail = obj.data[0].thumbnail_url;
-            if(thumbnail !== undefined) {
-                thumbnail = thumbnail.replace("{width}", "1920");
-                thumbnail = thumbnail.replace("{height}", "1080");
-            }
-            title = obj.data[0].title;
-            streamurl = `https://twitch.tv/${obj.data[0].user_login}`;
-          
-          console.log(thumbnail);
-        });
-        // ===================================================================================================================
-
-        // ===================================================================================================================
-        // Sending message to discord
-        for(var i = 0; i < streamers.length; i++) {
-            if(userid == streamers[i]) {
-                // send message to discord
-                client.channels.cache.get(process.env.ALERT_CHANNEL_ID).send(
-                {
-                    embed: {
-                    color: colors[i],
-                    author: {
-                      name: username,
-                      icon_url: "https://cdn.discordapp.com/attachments/787804906006380605/867105422275903518/tenor.gif"
-                    },
-                    image: {
-                      url: `${thumbnail}`
-                    },
-                    thumbnail: {
-                        url: "https://cdn.discordapp.com/attachments/787804906006380605/866403877330223124/PicsArt_07-14-11.31.46.png"
-                    },
-                    title: `${username} is now live on twitch!`,
-                    url: streamurl,
-                    fields: [{
-                        name: "Game",
-                        value: `${game}`,
-                        inline: true
+          // Stream live event subscription
+          for(var i = 0; i < streamers.length; i++) {
+              request.post( {
+                  url: 'https://api.twitch.tv/helix/eventsub/subscriptions',
+                  headers: {
+                      'Content-Type': 'application/json',
+                      'Client-ID': process.env.CLIENT_ID,
+                      'Authorization': accessToken
+                  },
+                  json: {
+                      "type": "stream.online",
+                      "version": "1",
+                      "condition": {
+                          "broadcaster_user_id": streamers[i]
                       },
-                      {
-                        name: "Viewers",
-                        value: `${viewers}`,
-                        inline: true
+                      "transport": {
+                          "method": "webhook",
+                          "callback": callback + "/webhooks/callback",
+                          "secret": process.env.CLIENT_SECRET
                       }
-                    ]
                   }
+              }, (error, response, body) => {
+                  if(error)
+                      console.log(error);
               });
-            }
-            else
-                console.log("UserID and streamers mismatch");
-        }
-        // ===================================================================================================================
-        res.sendStatus(200);
-    }
-});
+          }
+      });
 
-// Starting the server
-app.listen(3000, () => {
-    console.log('[EXPRESS] Started listening on port 3000');
-});
+      app.post('/webhooks/callback', (req, res) => {
+          if(req.body.subscription['status'] == 'webhook_callback_verification_pending') {
+              res.contentType('text/plain');
+              res.send(req.body['challenge']);
+              console.log('[INFO] Callback confirmation sent');
+              subid = req.body.subscription.id;
+          }
+          else if(req.body.subscription['status'] == 'enabled' && req.body.subscription['type'] == 'stream.online') { // Stream is live
+              var userid = req.body.subscription.condition['broadcaster_user_id'];
+              var username = req.body.event['broadcaster_user_name'];
+              var game; // Don't touch this
+              var viewers; // Don't touch this
+              var thumbnail; // Don't touch this
+              var title; // Don't touch this
+              var streamurl; // Don't touch this
+
+              // ===================================================================================================================
+              // Getting stream information
+              request.get( {
+                  url: `https://api.twitch.tv/helix/streams?user_id=${userid}`,
+                  headers: {
+                      'Content-Type': 'application/json',
+                      'Client-ID': process.env.CLIENT_ID,
+                      'Authorization': accessToken
+                  }
+              }, (error, response, body) => {
+                  if(error)
+                      console.log(error);
+
+                  var obj = JSON.parse(body);
+                  game = obj.data[0].game_name;
+                  viewers = obj.data[0].viewer_count;
+                  thumbnail = obj.data[0].thumbnail_url;
+                  if(thumbnail !== undefined) {
+                      thumbnail = thumbnail.replace("{width}", "1920");
+                      thumbnail = thumbnail.replace("{height}", "1080");
+                  }
+                  title = obj.data[0].title;
+                  streamurl = `https://twitch.tv/${obj.data[0].user_login}`;
+                
+                  console.log(obj);
+                console.log(obj);
+                  console.log(obj.data);
+              });
+              // ===================================================================================================================
+
+              // ===================================================================================================================
+              // Sending message to discord
+              for(var i = 0; i < streamers.length; i++) {
+                  if(userid == streamers[i]) {
+                      // send message to discord
+                      client.channels.cache.get(process.env.ALERT_CHANNEL_ID).send(
+                      {
+                          embed: {
+                          color: colors[i],
+                          author: {
+                            name: username,
+                            icon_url: "https://cdn.discordapp.com/attachments/787804906006380605/867105422275903518/tenor.gif"
+                          },
+                          /*image: {
+                            url: `${thumbnail}`
+                          },*/
+                          thumbnail: {
+                              url: "https://cdn.discordapp.com/attachments/787804906006380605/866403877330223124/PicsArt_07-14-11.31.46.png"
+                          },
+                          title: `${username} is now live on twitch!`,
+                          url: streamurl,
+                          fields: [{
+                              name: "Game",
+                              value: `${game}`,
+                              inline: true
+                            },
+                            {
+                              name: "Viewers",
+                              value: `${viewers}`,
+                              inline: true
+                            }
+                          ]
+                        }
+                    });
+                  }
+                  else
+                      console.log("UserID and streamers mismatch");
+              }
+              // ===================================================================================================================
+              res.sendStatus(200);
+          }
+      });
+
+      // Starting the server
+      app.listen(3000, () => {
+          console.log('[EXPRESS] Started listening on port 3000');
+      });
+}
