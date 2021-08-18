@@ -1,6 +1,6 @@
 module.exports = (client) => {
   console.log("[Discord API]: Logged In As " + client.user.tag);
 
-  client.user.setActivity("🎂 HBD Erph", {type: 'PLAYING'});
+  client.user.setActivity("📱 Social Media", {type: 'WATCHIING'});
 };
 
