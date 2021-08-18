@@ -1,7 +1,7 @@
 const { MessageEmbed } = require("discord.js");
 
 exports.run = (client, message) => {
-    if(!message.guild.members.cache.find(user => user.id == client.user.id).hasPermission('BAN_MEMBERS'))
+    if(!message.member.hasPermission('BAN_MEMBERS'))
       return message.reply("You don't have the permission to ban people bitch. Get the hell outa here.");
   
     if(!message.guild.me.hasPermission('BAN_MEMBERS'))
