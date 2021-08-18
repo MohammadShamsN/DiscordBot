@@ -16,7 +16,7 @@ exports.run = (client, message) => {
     if(reason == undefined)
         return message.reply("You need to specify a reason.");
   
-    message.guild.members.kick(user, reason)
+    message.guild.member(user).kick(reason)
         .then(kickInfo => message.reply(`Kicked ${user}\nReason: ${reason}`))
         .catch(console.error);
   
