@@ -2,7 +2,7 @@ const { MessageEmbed } = require("discord.js");
 
 exports.run = async (client, message) => {
   const commands = 
-   `@Mamad79#7979 
+   `<@446555159510777859> 
    kire mamad = sadrasb`
 
   const revised = commands

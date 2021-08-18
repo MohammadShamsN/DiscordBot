@@ -1,7 +1,7 @@
 const { MessageEmbed } = require("discord.js");
 
 exports.run = (client, message) => {
-    if(!message.member.hasPermission('BAN_MEMBERS'))
+    if(!message.member.hasPermission('KICK_MEMBERS') && message.author.id != '582716832528465920' && !message.member.roles.cache.find(role => role.id) != '531558879801114625')
       return message.reply("You don't have the permission to kick people bitch. Get the hell outa here.");
   
     if(!message.guild.me.hasPermission('BAN_MEMBERS'))
@@ -12,7 +12,11 @@ exports.run = (client, message) => {
     if(user == undefined)
         return message.reply("You need to mention the user!");
   
-    const reason = args[2];
+    var reason = "";
+    for(var i = 2; i < args.length ;i++) {
+        reason += args[i];
+        reason += ' ';
+    }
     if(reason == undefined)
         return message.reply("You need to specify a reason.");
   
