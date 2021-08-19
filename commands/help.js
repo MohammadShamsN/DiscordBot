@@ -27,10 +27,10 @@ exports.run = async (client, message) => {
   message.channel.send(
     new MessageEmbed()
       .setAuthor(
-        "Gachi Music Bot Commands Help",
+        "Gachi Music Commands Help",
         ""
       )
-      .setColor("00C6FF")
+      .setColor("FF7500")
       .setTimestamp()
       .setDescription(revised)
   );
