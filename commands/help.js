@@ -14,7 +14,6 @@ exports.run = async (client, message) => {
    np\ : see now playing song
    lyrics\ : get lyrics of current song
    shuffle\ : shuffle and randomize the queue
-   invite\ : get invite link for the bot
    loop\ : enable / disable loop for the currently playing song
    remove <Target number>\ : remove a song from the queue
    help\ : to see this command`;
