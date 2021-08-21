@@ -44,11 +44,11 @@ module.exports = async (client, member) => {
   
     let wlcmsgs = [', Welcome To Goodarzi Fam',
                   'Hey, Welcome To Goodarzi Fam',
+                  ', Mamnoonetam Ke Oomadi',
                   ', joined the party.',
                   ', just showed up!',
                   ', just landed.',
                   ', is here.',
-                  ', Mamnoonetam Ke Oomadi', 
                   ', hopped into the server.',
                   ', We hope you brought pizza.',
                   ', Good to see you',
