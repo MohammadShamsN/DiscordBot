@@ -3,16 +3,17 @@ module.exports = {
   minArgs: 2,
   expectedArgs: "<Target user's @> <The role name>",
   permissions: 'ADMINISTRATOR',
-  callback: (message, arguments) => {
+  callback: (message, args) => {
+    var argument = args;
     const targetUser = message.mentions.users.first()
     if (!targetUser) {
       message.reply('Please specify someone to give a role to.')
       return
     }
 
-    arguments.shift()
+    argument.shift()
 
-    const roleName = arguments.join(' ')
+    const roleName = argument.join(' ')
     const { guild } = message
 
     const role = guild.roles.cache.find((role) => {
