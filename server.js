@@ -18,7 +18,7 @@ var subid; // Don't touch this too
 var callback = "https://bote-erph.glitch.me";
 var streamers = ['167583973', // Erph
                  '260645620', // Hesamadl
-                 '260645620']; // ShayanVandal
+                 '186826987']; // ShayanVandal
 
 var colors = ['000000', // Erph
               '2596be', // Hesamadl
@@ -205,9 +205,9 @@ setInterval(async () => {
                     }).then(message => {
                         if(userid == '167583973')
                           message.react("<:erphGachi:872781918809260053>");
-                        else if(userid == '186826987')
-                          message.react("<:HesamGreetin:866306735420473375>");
                         else if(userid == '260645620')
+                          message.react("<:HesamGreetin:866306735420473375>");
+                        else if(userid == '186826987')
                           message.react("<:VandalWTF:870764138522091531>");
                     });
                   }
