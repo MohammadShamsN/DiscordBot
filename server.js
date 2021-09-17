@@ -17,7 +17,7 @@ var accessToken; // Don't touch this. Mersi Ah
 var subid; // Don't touch this too
 var callback = "https://bote-erph.glitch.me";
 var streamers = ['167583973', // Erph
-                 '186826987', // Hesamadl
+                 '260645620', // Hesamadl
                  '260645620']; // ShayanVandal
 
 var colors = ['000000', // Erph
@@ -25,7 +25,7 @@ var colors = ['000000', // Erph
               'E15F19']; // ShayanVandal
 
 var thumbnails = ['https://cdn.glitch.com/88d04f2d-1085-4493-a223-9abd169835de%2FPicsArt_07-14-11.31.46.png?v=1628439675571', // Logo Erph
-                 'https://cdn.glitch.com/88d04f2d-1085-4493-a223-9abd169835de%2FADL.jpg?v=1628439673773', // Logo Hesamdl
+                 'https://cdn.glitch.com/88d04f2d-1085-4493-a223-9abd169835de%2FADL.jpg?v=1628439673773', // Logo Hesamadl
                  'https://cdn.glitch.com/88d04f2d-1085-4493-a223-9abd169835de%2FInstaProfile_20210716_002633673-LARGE.jpg?v=1628439673323']; // Logo ShayanVandal
 
 const client = new Discord.Client();
