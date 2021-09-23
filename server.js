@@ -21,8 +21,8 @@ var streamers = ['167583973', // Erph
                  '186826987']; // ShayanVandal
 
 var colors = ['000000', // Erph
-              '2596be', // Hesamadl
-              'E15F19']; // ShayanVandal
+              'E15F19', // Hesamadl
+              '2596be']; // ShayanVandal
 
 var thumbnails = ['https://cdn.glitch.com/88d04f2d-1085-4493-a223-9abd169835de%2FPicsArt_07-14-11.31.46.png?v=1628439675571', // Logo Erph
                  'https://cdn.glitch.com/88d04f2d-1085-4493-a223-9abd169835de%2FADL.jpg?v=1628439673773', // Logo Hesamadl
