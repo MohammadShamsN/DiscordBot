@@ -20,7 +20,7 @@ var streamers = ['167583973', // Erph
                  '260645620', // Hesamadl
                  '186826987']; // ShayanVandal
 
-var colors = ['000000', // Erph
+var colors = ['#000000', // Erph
               'E15F19', // Hesamadl
               '2596be']; // ShayanVandal
 
