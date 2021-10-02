@@ -14,6 +14,6 @@ exports.run = async (client, message) => {
         .addField("<a:Insta2:866274244131291156> Instagram", "https://instagram.com/Saeedp7")
         .addField("<a:Twitter2:866280731047100426> Twitter", "https://twitter.com/Saeedp7")
         .addField("<a:Donate2:866084777014984705> Donate", "https://dono.gg/Saeedp7")
-        .addField("<a:Discord2:871469574434988072>", "https://discord.gg/suMV5Upuah")
+        .addField("<a:Insta2:866274244131291156> Instagram", "https://instagram.com/Saeedp7")
     );
 };
