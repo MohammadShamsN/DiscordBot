@@ -9,7 +9,6 @@
   "dependencies": {
     "ajv": "^8.6.2",
     "body-parser": "^1.19.0",
-    "canvas": "^2.8.0",
     "discord-ytdl-core": "^5.0.4",
     "discord.js": "^12.5.3",
     "dotenv": "^10.0.0",
@@ -27,7 +26,8 @@
     "request-promise": "^4.2.6",
     "spotify": "^0.3.0",
     "yt-search": "^2.10.0",
-    "ytdl-core": "^4.9.1"
+    "ytdl-core": "^4.9.1",
+    "canvas": "^2.8.0"
   },
   "engines": {
     "node": "12.x"
