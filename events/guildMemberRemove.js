@@ -2,9 +2,10 @@ const { MessageEmbed } = require('discord.js');
 
 module.exports = async (client, member) => {
   const guild = member.guild;
-  
+  console.log(member.user.avatarURL);
+  console.log(member.user.displayAvatarURL);
   // ----------------------- [Logging] -----------------------  
-  const exampleEmbed = new MessageEmbed()
+  const logMessage = new MessageEmbed()
 	.setColor('#0099ff')
 	.setAuthor(member.displayName, member.avatarURL, null) // user info
 	.setDescription(member.user.tag + ' left the server.') // message
@@ -12,12 +13,11 @@ module.exports = async (client, member) => {
 	.setImage(member.avatarURL) // user profile
 	.setTimestamp();
 
-  guild.channels.fetch(process.env.LOG_CHANNEL_ID).then(channel => {
-    if(channel == undefined)
+  var channel = guild.channels.cache.get(process.env.LOG_CHANNEL_ID);
+  if(channel == undefined)
       console.log('ERROR: Channel not found.')
     else
-      channel.send({ embeds: [exampleEmbed] });
-  })
+      channel.send(logMessage);
   // ---------------------------------------------------------
   
 }
