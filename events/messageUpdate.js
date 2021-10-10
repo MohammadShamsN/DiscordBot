@@ -1,15 +1,15 @@
 const { MessageEmbed } = require('discord.js');
 
-module.exports = async (client, message) => {
-  const guild = message.guild;
-  const member = message.member;
+module.exports = async (client, oldMessage, newMessage) => {
+  const guild = oldMessage.guild;
+  const member = oldMessage.member;
   // ----------------------- [Logging] ----------------------- 
   var channel = guild.channels.cache.get(process.env.LOG_CHANNEL_ID);
   var avatar = member.user.displayAvatarURL();
     const logMessage = new MessageEmbed()
     .setColor('#0099ff')
     .setAuthor(member.displayName, avatar, null) // user info
-    .setDescription(`${member.user} deleted message in ${message.channel}: ${message}`) // message
+    .setDescription(`${member.user} edited message in ${oldMessage.channel}\n Old message: ${oldMessage}\nNew message: ${newMessage}`) // message
     .setThumbnail(avatar) // user profile
     .setTimestamp();
 
