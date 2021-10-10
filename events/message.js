@@ -30,11 +30,6 @@ module.exports = (client, message) => {
     message.react(`<:POGGIES:872777790204833803>`)
     message.react(`<:Pog:871814464939393084>`)
   }
-
-  
-  // ----------------------- [Logging] -----------------------
-  
-  // ---------------------------------------------------------
   
   if (message.content.indexOf(client.config.prefix) !== 0) return
 
