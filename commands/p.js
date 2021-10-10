@@ -27,7 +27,7 @@ exports.run = async (client, message, args) => {
 
   if (query.includes("youtube.com")) {
     try {
-      const ytdata = await await yt.getBasicInfo(query);
+      const ytdata = await yt.getBasicInfo(query);
       if (!ytdata) return error("No song found for the url provided");
       song = {
         name: Util.escapeMarkdown(ytdata.videoDetails.title),
