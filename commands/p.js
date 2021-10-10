@@ -25,7 +25,7 @@ exports.run = async (client, message, args) => {
 
   if (!query) return error("You didn't provide a song name to play!");
 
-  if (query.includes("www.youtube.com")) {
+  if (query.includes("youtube.com")) {
     try {
       const ytdata = await await yt.getBasicInfo(query);
       if (!ytdata) return error("No song found for the url provided");
@@ -121,15 +121,7 @@ exports.run = async (client, message, args) => {
         highWaterMark: 1 << 25,
         opusEncoded: true,
       });
-      const player = data.connection
-        .play(source, { type: "opus" })
-        .on("finish", () => {
-          var removed = data.queue.shift();
-          if(data.loop == true){
-            data.queue.push(removed)
-          }
-          play(data.queue[0]);
-        });
+      
       player.setVolumeLogarithmic(data.volume / 100);
       data.channel.send(
         new MessageEmbed()
