@@ -1,5 +1,6 @@
 const { registerFont, createCanvas, loadImage, Canvas } = require('canvas');
 const { MessageAttachment } = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 
 module.exports = async (client, member) => {
   const guild = member.guild;
@@ -61,4 +62,19 @@ module.exports = async (client, member) => {
     channel.send(`${member} ${wlcmsgs[num]}`, attachment).then(message => { 
       message.react(`<a:ADLGreeting:866306648755011644>`);
     });
+  
+  // ----------------------- [Logging] -----------------------    
+  const logMessage = new MessageEmbed()
+	.setColor('#0099ff')
+	.setAuthor(member.displayName, avatar, null) // user info
+	.setDescription(member.user.tag + ' left the server.') // message
+	.setThumbnail(avatar) // user profile
+	.setTimestamp();
+
+  var logChannel = guild.channels.cache.get(process.env.LOG_CHANNEL_ID);
+  if(logChannel == undefined)
+      console.log('ERROR: Channel not found.')
+    else
+      logChannel.send(logMessage);
+  // ---------------------------------------------------------
 };

@@ -2,15 +2,14 @@ const { MessageEmbed } = require('discord.js');
 
 module.exports = async (client, member) => {
   const guild = member.guild;
-  console.log(member.user.avatarURL);
-  console.log(member.user.displayAvatarURL);
   // ----------------------- [Logging] -----------------------  
+  var avatar = member.user.displayAvatarURL();
+  
   const logMessage = new MessageEmbed()
 	.setColor('#0099ff')
-	.setAuthor(member.displayName, member.avatarURL, null) // user info
+	.setAuthor(member.displayName, avatar, null) // user info
 	.setDescription(member.user.tag + ' left the server.') // message
-	.setThumbnail(member.avatarURL) // user profile
-	.setImage(member.avatarURL) // user profile
+	.setThumbnail(avatar) // user profile
 	.setTimestamp();
 
   var channel = guild.channels.cache.get(process.env.LOG_CHANNEL_ID);
