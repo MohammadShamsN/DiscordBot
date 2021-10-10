@@ -1,5 +1,5 @@
 const ytdl = require("discord-ytdl-core");
-const youtubeScraper = require("yt-search");
+const ytsr = require("ytsr");
 const yt = require("ytdl-core");
 const { MessageEmbed, Util } = require("discord.js");
 const forHumans = require("../utils/forhumans.js");
@@ -45,19 +45,21 @@ exports.run = async (client, message, args) => {
     }
   } else {
     try {
-      const fetched = await (await youtubeScraper(query)).videos;
-      if (fetched.length === 0 || !fetched)
+      const fetched = ytsr(query).then(fetched => {
+        if (fetched.length === 0 || !fetched)
         return error("I couldn't find the song you requested!'");
-      const data = fetched[0];
-      song = {
-        name: Util.escapeMarkdown(data.title),
-        thumbnail: data.image,
-        requested: message.author,
-        videoId: data.videoId,
-        duration: data.duration.toString(),
-        url: data.url,
-        views: data.views,
-      };
+        const data = fetched[0];
+        song = {
+          name: Util.escapeMarkdown(data.title),
+          thumbnail: data.image,
+          requested: message.author,
+          videoId: data.videoId,
+          duration: data.duration.toString(),
+          url: data.url,
+          views: data.views,
+        };
+      });
+      
     } catch (err) {
       console.log(err);
       return error("An error occured, Please check console");
