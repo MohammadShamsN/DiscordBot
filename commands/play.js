@@ -1,5 +1,5 @@
 const ytdl = require("discord-ytdl-core");
-const youtubeScraper = require("yt-search");
+const ytsr = require("ytsr");
 const yt = require("ytdl-core");
 const { MessageEmbed, Util } = require("discord.js");
 const forHumans = require("../utils/forhumans.js");
@@ -25,9 +25,9 @@ exports.run = async (client, message, args) => {
 
   if (!query) return error("You didn't provide a song name to play!");
 
-  if (query.includes("www.youtube.com")) {
+  if (query.includes("youtube.com")) {
     try {
-      const ytdata = await await yt.getBasicInfo(query);
+      const ytdata = await yt.getBasicInfo(query);
       if (!ytdata) return error("No song found for the url provided");
       song = {
         name: Util.escapeMarkdown(ytdata.videoDetails.title),
@@ -45,19 +45,21 @@ exports.run = async (client, message, args) => {
     }
   } else {
     try {
-      const fetched = await (await youtubeScraper(query)).videos;
-      if (fetched.length === 0 || !fetched)
+      await ytsr(query).then(fetched => {
+        if (fetched.length === 0 || !fetched)
         return error("I couldn't find the song you requested!'");
-      const data = fetched[0];
-      song = {
-        name: Util.escapeMarkdown(data.title),
-        thumbnail: data.image,
-        requested: message.author,
-        videoId: data.videoId,
-        duration: data.duration.toString(),
-        url: data.url,
-        views: data.views,
-      };
+        const data = fetched.items[0];
+        song = {
+          name: Util.escapeMarkdown(data.title),
+          thumbnail: data.bestThumbnail.url,
+          requested: data.author.name,
+          videoId: data.id,
+          duration: data.duration.toString(),
+          url: data.url,
+          views: data.views,
+        };
+      });
+      
     } catch (err) {
       console.log(err);
       return error("An error occured, Please check console");
@@ -110,7 +112,7 @@ exports.run = async (client, message, args) => {
     try {
       const data = message.client.queue.get(message.guild.id);
       if (!track) {
-        data.channel.send("Queue is empty, Leaving voice channel");
+        data.channel.send("Ahang Tamom Shod Felan Khodahafeez.  <a:KEKBye:802573515973853184>");
         message.guild.me.voice.channel.leave();
         return deletequeue(message.guild.id);
       }
