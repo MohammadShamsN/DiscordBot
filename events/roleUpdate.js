@@ -9,7 +9,7 @@ module.exports = async (client, oldRole, newRole) => {
     const logMessage = new MessageEmbed()
     .setColor('#0099ff')
     .setAuthor(member.displayName, avatar, null) // user info
-    .setDescription(`${member.user}'s role got updated:`) // message
+    .setDescription(`${member.user}'s role updated:\nOld roles: ${oldRole}\nNew roles: ${newRole}`) // message
     .setThumbnail(avatar) // user profile
     .setTimestamp();
 
