@@ -45,7 +45,7 @@ exports.run = async (client, message, args) => {
     }
   } else {
     try {
-      ytsr(query).then(fetched => {
+      await ytsr(query).then(fetched => {
         if (fetched.length === 0 || !fetched)
         return error("I couldn't find the song you requested!'");
         const data = fetched.items[0];
