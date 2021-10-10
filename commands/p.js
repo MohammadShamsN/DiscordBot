@@ -121,7 +121,15 @@ exports.run = async (client, message, args) => {
         highWaterMark: 1 << 25,
         opusEncoded: true,
       });
-      
+      const player = data.connection
+        .play(source, { type: "opus" })
+        .on("finish", () => {
+          var removed = data.queue.shift();
+          if(data.loop == true){
+            data.queue.push(removed)
+          }
+          play(data.queue[0]);
+        });
       player.setVolumeLogarithmic(data.volume / 100);
       data.channel.send(
         new MessageEmbed()
