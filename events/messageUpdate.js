@@ -3,7 +3,9 @@ const { MessageEmbed } = require('discord.js');
 module.exports = async (client, oldMessage, newMessage) => {
   const guild = oldMessage.guild;
   const member = oldMessage.member;
+  
   // ----------------------- [Logging] ----------------------- 
+  if(oldMessage.toString() === newMessage.toString()) return;
   var channel = guild.channels.cache.get(process.env.LOG_CHANNEL_ID);
   var avatar = member.user.displayAvatarURL();
     const logMessage = new MessageEmbed()
