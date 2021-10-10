@@ -32,6 +32,10 @@ module.exports = (client, message) => {
   }
 
   
+  // ----------------------- [Logging] -----------------------
+  
+  // ---------------------------------------------------------
+  
   if (message.content.indexOf(client.config.prefix) !== 0) return
 
   const args = message.content
