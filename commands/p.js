@@ -45,15 +45,15 @@ exports.run = async (client, message, args) => {
     }
   } else {
     try {
-      const fetched = ytsr(query).then(fetched => {
+      ytsr(query).then(fetched => {
         if (fetched.length === 0 || !fetched)
         return error("I couldn't find the song you requested!'");
-        const data = fetched[0];
+        const data = fetched.items[0];
         song = {
           name: Util.escapeMarkdown(data.title),
-          thumbnail: data.image,
-          requested: message.author,
-          videoId: data.videoId,
+          thumbnail: data.bestThumbnail.url,
+          requested: data.author.name,
+          videoId: data.id,
           duration: data.duration.toString(),
           url: data.url,
           views: data.views,
