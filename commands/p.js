@@ -49,18 +49,7 @@ exports.run = async (client, message, args) => {
     
     
     try {
-      const sptdata = spdl.getInfo(query).then(infos => {
-        if (!sptdata) return error("No song found for the url provided");
-        song = {
-          name: Util.escapeMarkdown(infos.title),
-          thumbnail: infos.thumbnail,
-          requested: infos.artistm,
-          videoId: 0,
-          duration: forHumans(infos.duration),
-          url: infos.url,
-          views: 0,
-        };
-      });
+      const sptdata = await spdl.getInfo(query).then(infos => console.log(infos));
     } catch (e) {
       console.log(e);
       return error("Error occured, please check console");
