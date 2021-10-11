@@ -43,6 +43,8 @@ exports.run = async (client, message, args) => {
       console.log(e);
       return error("Error occured, please check console");
     }
+  } else if (query.includes("spotify.com/track/")) {
+    
   } else {
     try {
       await ytsr(query).then(fetched => {
