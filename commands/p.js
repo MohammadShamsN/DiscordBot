@@ -49,7 +49,12 @@ exports.run = async (client, message, args) => {
     
     
     try {
-      const sptdata = await spdl.getInfo(query).then(infos => console.log(infos));
+      spdl.getInfo('https://open.spotify.com/track/6tDDoYIxWvMLTdKpjFkc1B').then(infos => {
+        spdl(infos.url).then(stream => {
+          stream.on('end', () => console.log('Done!'));
+          stream.pipe(console.log(infos.title));
+        });
+    });
     } catch (e) {
       console.log(e);
       return error("Error occured, please check console");
