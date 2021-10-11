@@ -1,154 +1,483 @@
-const ytdl = require("discord-ytdl-core");
-const ytsr = require("ytsr");
-const yt = require("ytdl-core");
-const { MessageEmbed, Util } = require("discord.js");
-const forHumans = require("../utils/forhumans.js");
+const { Util, MessageEmbed } = require("discord.js");
+const { TrackUtils, Player } = require("erela.js");
+const prettyMilliseconds = require("pretty-ms");
 
-exports.run = async (client, message, args) => {
-  const channel = message.member.voice.channel;
+module.exports = {
+  name: "play",
+  description: "Play your favorite songs",
+  usage: "[song]",
+  permissions: {
+    channel: ["VIEW_CHANNEL", "SEND_MESSAGES", "EMBED_LINKS"],
+    member: [],
+  },
+  aliases: ["p"],
+  /**
+   *
+   * @param {import("../structures/DiscordMusicBot")} client
+   * @param {import("discord.js").Message} message
+   * @param {string[]} args
+   * @param {*} param3
+   */
+  run: async (client, message, args, { GuildDB }) => {
+    if (!message.member.voice.channel)
+      return client.sendTime(
+        message.channel,
+        "❌ | **You must be in a voice channel to play something!**"
+      );
+    if (
+      message.guild.me.voice.channel &&
+      message.member.voice.channel.id !== message.guild.me.voice.channel.id
+    )
+      return client.sendTime(
+        message.channel,
+        ":x: | **You must be in the same voice channel as me to use this command!**"
+      );
+    let SearchString = args.join(" ");
+    if (!SearchString)
+      return client.sendTime(
+        message.channel,
+        `**Usage - **\`${GuildDB.prefix}play [song]\``
+      );
+    let CheckNode = client.Manager.nodes.get(client.botconfig.Lavalink.id);
+    let Searching = await message.channel.send(":mag_right: Searching...");
+    if (!CheckNode || !CheckNode.connected) {
+      return client.sendTime(
+        message.channel,
+        "❌ | **Lavalink node not connected**"
+      );
+    }
+    const player = client.Manager.create({
+      guild: message.guild.id,
+      voiceChannel: message.member.voice.channel.id,
+      textChannel: message.channel.id,
+      selfDeafen: client.botconfig.ServerDeafen,
+      volume: client.botconfig.DefaultVolume,
+    });
 
-  const error = (err) => message.channel.send(err);
-  const send = (content) => message.channel.send(content);
-  const setqueue = (id, obj) => message.client.queue.set(id, obj);
-  const deletequeue = (id) => message.client.queue.delete(id);
-  var song;
+    let SongAddedEmbed = new MessageEmbed().setColor(
+      client.botconfig.EmbedColor
+    );
 
-  if (!channel) return error("You must join a voice channel to play music!");
+    if (!player)
+      return client.sendTime(
+        message.channel,
+        "❌ | **Nothing is playing right now...**"
+      );
 
-  if (!channel.permissionsFor(message.client.user).has("CONNECT"))
-    return error("I don't have permission to join the voice channel");
+    if (player.state != "CONNECTED") await player.connect();
 
-  if (!channel.permissionsFor(message.client.user).has("SPEAK"))
-    return error("I don't have permission to speak in the voice channel");
-
-  const query = args.join(" ");
-
-  if (!query) return error("You didn't provide a song name to play!");
-
-  if (query.includes("youtube.com")) {
     try {
-      const ytdata = await yt.getBasicInfo(query);
-      if (!ytdata) return error("No song found for the url provided");
-      song = {
-        name: Util.escapeMarkdown(ytdata.videoDetails.title),
-        thumbnail:
-          ytdata.player_response.videoDetails.thumbnail.thumbnails[0].url,
-        requested: message.author,
-        videoId: ytdata.videoDetails.videoId,
-        duration: forHumans(ytdata.videoDetails.lengthSeconds),
-        url: ytdata.videoDetails.video_url,
-        views: ytdata.videoDetails.viewCount,
-      };
+      if (SearchString.match(client.Lavasfy.spotifyPattern)) {
+        await client.Lavasfy.requestToken();
+        let node = client.Lavasfy.nodes.get(client.botconfig.Lavalink.id);
+        let Searched = await node.load(SearchString);
+
+        if (Searched.loadType === "PLAYLIST_LOADED") {
+          let songs = [];
+          for (let i = 0; i < Searched.tracks.length; i++)
+            songs.push(TrackUtils.build(Searched.tracks[i], message.author));
+          player.queue.add(songs);
+          if (
+            !player.playing &&
+            !player.paused &&
+            player.queue.totalSize === Searched.tracks.length
+          )
+            player.play();
+          SongAddedEmbed.setAuthor(
+            `Playlist added to queue`,
+            message.author.displayAvatarURL()
+          );
+          SongAddedEmbed.addField(
+            "Enqueued",
+            `\`${Searched.tracks.length}\` songs`,
+            false
+          );
+          //SongAddedEmbed.addField("Playlist duration", `\`${prettyMilliseconds(Searched.tracks, { colonNotation: true })}\``, false)
+          Searching.edit(SongAddedEmbed);
+        } else if (Searched.loadType.startsWith("TRACK")) {
+          player.queue.add(
+            TrackUtils.build(Searched.tracks[0], message.author)
+          );
+          if (!player.playing && !player.paused && !player.queue.size)
+            player.play();
+          SongAddedEmbed.setAuthor(`Added to queue`, client.botconfig.IconURL);
+          SongAddedEmbed.setDescription(
+            `[${Searched.tracks[0].info.title}](${Searched.tracks[0].info.uri})`
+          );
+          SongAddedEmbed.addField(
+            "Author",
+            Searched.tracks[0].info.author,
+            true
+          );
+          //SongAddedEmbed.addField("Duration", `\`${prettyMilliseconds(Searched.tracks[0].length, { colonNotation: true })}\``, true);
+          if (player.queue.totalSize > 1)
+            SongAddedEmbed.addField(
+              "Position in queue",
+              `${player.queue.size - 0}`,
+              true
+            );
+          Searching.edit(SongAddedEmbed);
+        } else {
+          return client.sendTime(
+            message.channel,
+            "**No matches found for - **" + SearchString
+          );
+        }
+      } else {
+        let Searched = await player.search(SearchString, message.author);
+        if (!player)
+          return client.sendTime(
+            message.channel,
+            "❌ | **Nothing is playing right now...**"
+          );
+
+        if (Searched.loadType === "NO_MATCHES")
+          return client.sendTime(
+            message.channel,
+            "**No matches found for - **" + SearchString
+          );
+        else if (Searched.loadType == "PLAYLIST_LOADED") {
+          player.queue.add(Searched.tracks);
+          if (
+            !player.playing &&
+            !player.paused &&
+            player.queue.totalSize === Searched.tracks.length
+          )
+            player.play();
+          SongAddedEmbed.setAuthor(
+            `Playlist added to queue`,
+            client.botconfig.IconURL
+          );
+          SongAddedEmbed.setThumbnail(Searched.tracks[0].displayThumbnail());
+          SongAddedEmbed.setDescription(
+            `[${Searched.playlist.name}](${SearchString})`
+          );
+          SongAddedEmbed.addField(
+            "Enqueued",
+            `\`${Searched.tracks.length}\` songs`,
+            false
+          );
+          SongAddedEmbed.addField(
+            "Playlist duration",
+            `\`${prettyMilliseconds(Searched.playlist.duration, {
+              colonNotation: true,
+            })}\``,
+            false
+          );
+          Searching.edit(SongAddedEmbed);
+        } else {
+          player.queue.add(Searched.tracks[0]);
+          if (!player.playing && !player.paused && !player.queue.size)
+            player.play();
+          SongAddedEmbed.setAuthor(`Added to queue`, client.botconfig.IconURL);
+
+          SongAddedEmbed.setThumbnail(Searched.tracks[0].displayThumbnail());
+          SongAddedEmbed.setDescription(
+            `[${Searched.tracks[0].title}](${Searched.tracks[0].uri})`
+          );
+          SongAddedEmbed.addField("Author", Searched.tracks[0].author, true);
+          SongAddedEmbed.addField(
+            "Duration",
+            `\`${prettyMilliseconds(Searched.tracks[0].duration, {
+              colonNotation: true,
+            })}\``,
+            true
+          );
+          if (player.queue.totalSize > 1)
+            SongAddedEmbed.addField(
+              "Position in queue",
+              `${player.queue.size - 0}`,
+              true
+            );
+          Searching.edit(SongAddedEmbed);
+        }
+      }
     } catch (e) {
       console.log(e);
-      return error("Error occured, please check console");
-    }
-  } else {
-    try {
-      await ytsr(query).then(fetched => {
-        if (fetched.length === 0 || !fetched)
-        return error("I couldn't find the song you requested!'");
-        const data = fetched.items[0];
-        song = {
-          name: Util.escapeMarkdown(data.title),
-          thumbnail: data.bestThumbnail.url,
-          requested: data.author.name,
-          videoId: data.id,
-          duration: data.duration.toString(),
-          url: data.url,
-          views: data.views,
-        };
-      });
-      
-    } catch (err) {
-      console.log(err);
-      return error("An error occured, Please check console");
-    }
-  }
-
-  var list = message.client.queue.get(message.guild.id);
-
-  if (list) {
-    list.queue.push(song);
-    return send(
-      new MessageEmbed()
-        .setAuthor(
-          "The song has been added to the queue",
-          "https://img.icons8.com/color/2x/cd--v3.gif"
-        )
-        .setColor("F93CCA")
-        .setThumbnail(song.thumbnail)
-        .addField("Song Name", song.name, false)
-        .addField("Views", song.views, false)
-        .addField("Duration", song.duration, false)
-        .addField("Requested By", song.requested.tag, false)
-        .setFooter("Positioned " + list.queue.length + " In the queue")
-    );
-  }
-
-  const structure = {
-    channel: message.channel,
-    vc: channel,
-    volume: 85,
-    playing: true,
-    queue: [],
-    connection: null,
-  };
-
-  setqueue(message.guild.id, structure);
-  structure.queue.push(song);
-
-  try {
-    const join = await channel.join();
-    structure.connection = join;
-    play(structure.queue[0]);
-  } catch (e) {
-    console.log(e);
-    deletequeue(message.guild.id);
-    return error("I couldn't join the voice channel, Please check console");
-  }
-
-  async function play(track) {
-    try {
-      const data = message.client.queue.get(message.guild.id);
-      if (!track) {
-        data.channel.send("Ahang Tamom Shod Felan Khodahafeez.  <a:KEKBye:802573515973853184>");
-        message.guild.me.voice.channel.leave();
-        return deletequeue(message.guild.id);
-      }
-      data.connection.on("disconnect", () => deletequeue(message.guild.id));
-      const source = await ytdl(track.url, {
-        filter: "audioonly",
-        quality: "highestaudio",
-        highWaterMark: 1 << 25,
-        opusEncoded: true,
-      });
-      const player = data.connection
-        .play(source, { type: "opus" })
-        .on("finish", () => {
-          var removed = data.queue.shift();
-          if(data.loop == true){
-            data.queue.push(removed)
-          }
-          play(data.queue[0]);
-        });
-      player.setVolumeLogarithmic(data.volume / 100);
-      data.channel.send(
-        new MessageEmbed()
-          .setAuthor(
-            "Started Playing",
-            "https://img.icons8.com/color/2x/cd--v3.gif"
-          )
-          .setColor("9D5CFF")
-          .setThumbnail(track.thumbnail)
-          .addField("Song Name", track.name, false)
-          .addField("Views", track.views, false)
-          .addField("Duration", track.duration, false)
-          .addField("Requested By", track.requested, false)
-          .setFooter("Youtube Music Player")
+      return client.sendTime(
+        message.channel,
+        "**No matches found for - **" + SearchString
       );
-    } catch (e) {
-      console.error(e);
     }
-  }
+  },
+
+  SlashCommand: {
+    options: [
+      {
+        name: "song",
+        value: "song",
+        type: 3,
+        required: true,
+        description: "Play music in the voice channel",
+      },
+    ],
+    /**
+     *
+     * @param {import("../structures/DiscordMusicBot")} client
+     * @param {import("discord.js").Message} message
+     * @param {string[]} args
+     * @param {*} param3
+     */
+    run: async (client, interaction, args, { GuildDB }) => {
+      const guild = client.guilds.cache.get(interaction.guild_id);
+      const member = guild.members.cache.get(interaction.member.user.id);
+      const voiceChannel = member.voice.channel;
+      let awaitchannel = client.channels.cache.get(interaction.channel_id); /// thanks Reyansh for this idea ;-;
+      if (!member.voice.channel)
+        return client.sendTime(
+          interaction,
+          "❌ | **You must be in a voice channel to use this command.**"
+        );
+      if (
+        guild.me.voice.channel &&
+        !guild.me.voice.channel.equals(member.voice.channel)
+      )
+        return client.sendTime(
+          interaction,
+          ":x: | **You must be in the same voice channel as me to use this command!**"
+        );
+      let CheckNode = client.Manager.nodes.get(client.botconfig.Lavalink.id);
+      if (!CheckNode || !CheckNode.connected) {
+        return client.sendTime(
+          interaction,
+          "❌ | **Lavalink node not connected**"
+        );
+      }
+
+      let player = client.Manager.create({
+        guild: interaction.guild_id,
+        voiceChannel: voiceChannel.id,
+        textChannel: interaction.channel_id,
+        selfDeafen: client.botconfig.ServerDeafen,
+      });
+      if (player.state != "CONNECTED") await player.connect();
+      let search = interaction.data.options[0].value;
+      let res;
+
+      if (search.match(client.Lavasfy.spotifyPattern)) {
+        await client.Lavasfy.requestToken();
+        let node = client.Lavasfy.nodes.get(client.botconfig.Lavalink.id);
+        let Searched = await node.load(search);
+
+        switch (Searched.loadType) {
+          case "LOAD_FAILED":
+            if (!player.queue.current) player.destroy();
+            return client.sendError(
+              interaction,
+              `❌ | **There was an error while searching**`
+            );
+
+          case "NO_MATCHES":
+            if (!player.queue.current) player.destroy();
+            return client.sendTime(
+              interaction,
+              "❌ | **No results were found.**"
+            );
+          case "TRACK_LOADED":
+            player.queue.add(TrackUtils.build(Searched.tracks[0], member.user));
+            if (!player.playing && !player.paused && !player.queue.length)
+              player.play();
+            let SongAddedEmbed = new MessageEmbed();
+            SongAddedEmbed.setAuthor(
+              `Added to queue`,
+              client.botconfig.IconURL
+            );
+            SongAddedEmbed.setColor(client.botconfig.EmbedColor);
+            SongAddedEmbed.setDescription(
+              `[${Searched.tracks[0].info.title}](${Searched.tracks[0].info.uri})`
+            );
+            SongAddedEmbed.addField(
+              "Author",
+              Searched.tracks[0].info.author,
+              true
+            );
+            if (player.queue.totalSize > 1)
+              SongAddedEmbed.addField(
+                "Position in queue",
+                `${player.queue.size - 0}`,
+                true
+              );
+            return interaction.send(SongAddedEmbed);
+
+          case "SEARCH_RESULT":
+            player.queue.add(TrackUtils.build(Searched.tracks[0], member.user));
+            if (!player.playing && !player.paused && !player.queue.length)
+              player.play();
+            let SongAdded = new MessageEmbed();
+            SongAdded.setAuthor(`Added to queue`, client.botconfig.IconURL);
+            SongAdded.setColor(client.botconfig.EmbedColor);
+            SongAdded.setDescription(
+              `[${Searched.tracks[0].info.title}](${Searched.tracks[0].info.uri})`
+            );
+            SongAdded.addField("Author", Searched.tracks[0].info.author, true);
+            if (player.queue.totalSize > 1)
+              SongAdded.addField(
+                "Position in queue",
+                `${player.queue.size - 0}`,
+                true
+              );
+            return interaction.send(SongAdded);
+
+          case "PLAYLIST_LOADED":
+            let songs = [];
+            for (let i = 0; i < Searched.tracks.length; i++)
+              songs.push(TrackUtils.build(Searched.tracks[i], member.user));
+            player.queue.add(songs);
+            if (
+              !player.playing &&
+              !player.paused &&
+              player.queue.totalSize === Searched.tracks.length
+            )
+              player.play();
+            let Playlist = new MessageEmbed();
+            Playlist.setAuthor(
+              `Playlist added to queue`,
+              client.botconfig.IconURL
+            );
+            Playlist.setDescription(
+              `[${Searched.playlistInfo.name}](${interaction.data.options[0].value})`
+            );
+            Playlist.addField(
+              "Enqueued",
+              `\`${Searched.tracks.length}\` songs`,
+              false
+            );
+            return interaction.send(Playlist);
+        }
+      } else {
+        try {
+          res = await player.search(search, member.user);
+          if (res.loadType === "LOAD_FAILED") {
+            if (!player.queue.current) player.destroy();
+            return client.sendError(
+              interaction,
+              `:x: | **There was an error while searching**`
+            );
+          }
+        } catch (err) {
+          return client.sendError(
+            interaction,
+            `There was an error while searching: ${err.message}`
+          );
+        }
+        switch (res.loadType) {
+          case "NO_MATCHES":
+            if (!player.queue.current) player.destroy();
+            return client.sendTime(
+              interaction,
+              "❌ | **No results were found.**"
+            );
+          case "TRACK_LOADED":
+            player.queue.add(res.tracks[0]);
+            if (!player.playing && !player.paused && !player.queue.length)
+              player.play();
+            let SongAddedEmbed = new MessageEmbed();
+            SongAddedEmbed.setAuthor(
+              `Added to queue`,
+              client.botconfig.IconURL
+            );
+            SongAddedEmbed.setThumbnail(res.tracks[0].displayThumbnail());
+            SongAddedEmbed.setColor(client.botconfig.EmbedColor);
+            SongAddedEmbed.setDescription(
+              `[${res.tracks[0].title}](${res.tracks[0].uri})`
+            );
+            SongAddedEmbed.addField("Author", res.tracks[0].author, true);
+            SongAddedEmbed.addField(
+              "Duration",
+              `\`${prettyMilliseconds(res.tracks[0].duration, {
+                colonNotation: true,
+              })}\``,
+              true
+            );
+            if (player.queue.totalSize > 1)
+              SongAddedEmbed.addField(
+                "Position in queue",
+                `${player.queue.size - 0}`,
+                true
+              );
+            return interaction.send(SongAddedEmbed);
+
+          case "PLAYLIST_LOADED":
+            player.queue.add(res.tracks);
+            await player.play();
+            let SongAdded = new MessageEmbed();
+            SongAdded.setAuthor(
+              `Playlist added to queue`,
+              client.botconfig.IconURL
+            );
+            SongAdded.setThumbnail(res.tracks[0].displayThumbnail());
+            SongAdded.setDescription(
+              `[${res.playlist.name}](${interaction.data.options[0].value})`
+            );
+            SongAdded.addField(
+              "Enqueued",
+              `\`${res.tracks.length}\` songs`,
+              false
+            );
+            SongAdded.addField(
+              "Playlist duration",
+              `\`${prettyMilliseconds(res.playlist.duration, {
+                colonNotation: true,
+              })}\``,
+              false
+            );
+            return interaction.send(SongAdded);
+          case "SEARCH_RESULT":
+            const track = res.tracks[0];
+            player.queue.add(track);
+
+            if (!player.playing && !player.paused && !player.queue.length) {
+              let SongAddedEmbed = new MessageEmbed();
+              SongAddedEmbed.setAuthor(
+                `Added to queue`,
+                client.botconfig.IconURL
+              );
+              SongAddedEmbed.setThumbnail(track.displayThumbnail());
+              SongAddedEmbed.setColor(client.botconfig.EmbedColor);
+              SongAddedEmbed.setDescription(`[${track.title}](${track.uri})`);
+              SongAddedEmbed.addField("Author", track.author, true);
+              SongAddedEmbed.addField(
+                "Duration",
+                `\`${prettyMilliseconds(track.duration, {
+                  colonNotation: true,
+                })}\``,
+                true
+              );
+              if (player.queue.totalSize > 1)
+                SongAddedEmbed.addField(
+                  "Position in queue",
+                  `${player.queue.size - 0}`,
+                  true
+                );
+              player.play();
+              return interaction.send(SongAddedEmbed);
+            } else {
+              let SongAddedEmbed = new MessageEmbed();
+              SongAddedEmbed.setAuthor(
+                `Added to queue`,
+                client.botconfig.IconURL
+              );
+              SongAddedEmbed.setThumbnail(track.displayThumbnail());
+              SongAddedEmbed.setColor(client.botconfig.EmbedColor);
+              SongAddedEmbed.setDescription(`[${track.title}](${track.uri})`);
+              SongAddedEmbed.addField("Author", track.author, true);
+              SongAddedEmbed.addField(
+                "Duration",
+                `\`${prettyMilliseconds(track.duration, {
+                  colonNotation: true,
+                })}\``,
+                true
+              );
+              if (player.queue.totalSize > 1)
+                SongAddedEmbed.addField(
+                  "Position in queue",
+                  `${player.queue.size - 0}`,
+                  true
+                );
+              interaction.send(SongAddedEmbed);
+            }
+        }
+      }
+    },
+  },
 };

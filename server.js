@@ -1,8 +1,11 @@
 var https = require('https');
 var bodyParser = require('body-parser');
 var request = require('request-promise');
+const DiscordMusicBot = require("./structures/DiscordMusicBot");
 
 const Discord = require("discord.js");
+const client = new DiscordMusicBot();
+client.build();
 const fs = require("fs");
 require("dotenv").config();
 
@@ -219,3 +222,5 @@ setInterval(async () => {
       app.listen(3000, () => {
           console.log('[EXPRESS] Started listening on port 3000');
       });
+
+      module.exports = client; //;-;
