@@ -1,6 +1,7 @@
 const ytdl = require("discord-ytdl-core");
 const ytsr = require("ytsr");
 const yt = require("ytdl-core");
+const spdl = require('spdl-core').default;
 const { MessageEmbed, Util } = require("discord.js");
 const forHumans = require("../utils/forhumans.js");
 
@@ -44,6 +45,28 @@ exports.run = async (client, message, args) => {
       return error("Error occured, please check console");
     }
   } else if (query.includes("spotify.com/track/")) {
+    
+    
+    
+    try {
+      const sptdata = spdl.getInfo('https://open.spotify.com/track/3fjmSxt0PskST13CSdBUFx?si=e420cd3a80834011').then(infos => {
+        if (!sptdata) return error("No song found for the url provided");
+        song = {
+          name: Util.escapeMarkdown(infos.title),
+          thumbnail: infos.thumbnail,
+          requested: infos.artistm,
+          videoId: 0,
+          duration: forHumans(infos.duration),
+          url: infos.url,
+          views: 0,
+        };
+      });
+    } catch (e) {
+      console.log(e);
+      return error("Error occured, please check console");
+    }
+    
+    
     
   } else {
     try {
