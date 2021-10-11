@@ -49,7 +49,7 @@ exports.run = async (client, message, args) => {
     
     
     try {
-      const sptdata = spdl.getInfo('https://open.spotify.com/track/3fjmSxt0PskST13CSdBUFx?si=e420cd3a80834011').then(infos => {
+      const sptdata = spdl.getInfo(query).then(infos => {
         if (!sptdata) return error("No song found for the url provided");
         song = {
           name: Util.escapeMarkdown(infos.title),
